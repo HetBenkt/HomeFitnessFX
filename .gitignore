@@ -1,0 +1,9 @@
+/.idea
+/.gradle
+gradle
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
+AndroidManifest.xml
+/HomeFitnessFXApp/src/android
