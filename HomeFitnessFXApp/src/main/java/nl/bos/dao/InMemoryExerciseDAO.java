@@ -1,5 +1,6 @@
 package nl.bos.dao;
 
+import javafx.scene.image.Image;
 import nl.bos.models.Exercise;
 
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
     }
 
     @Override
-    public Exercise createExercise() {
-        Exercise exercise = new Exercise(getNextExerciseId());
+    public Exercise createExercise(String name, String description, Image icon) {
+        Exercise exercise = new Exercise(getNextExerciseId(), name, description, icon);
         exercises.add(exercise);
         return exercise;
     }

@@ -14,7 +14,7 @@ import static nl.bos.HomeFitnessFX.MAIN_VIEW;
 import static nl.bos.HomeFitnessFX.ADMIN_VIEW;
 import javafx.scene.image.Image;
 
-class DrawerManager {
+public class DrawerManager {
 
     private DrawerManager() {
     }
