@@ -1,4 +1,4 @@
-package nl.bos.controllers;
+package nl.bos;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
@@ -15,7 +15,7 @@ public class ExerciseCell extends ListCell<Exercise> {
     private ImageView icon;
     private HBox exerciseContent;
 
-    ExerciseCell() {
+    public ExerciseCell() {
         super();
         name = new Text();
         description = new Text();

@@ -13,7 +13,7 @@ public class ExerciseService {
         this.exerciseDAO = InMemoryExerciseDAO.getInstance();
     }
 
-    public List<Exercise> getAllEmployees() {
+    public List<Exercise> getAllExercises() {
         return exerciseDAO.getAllExercises();
     }
 }
