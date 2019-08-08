@@ -7,3 +7,4 @@ gradlew.bat
 settings.gradle
 AndroidManifest.xml
 /HomeFitnessFXApp/src/android
+local.properties

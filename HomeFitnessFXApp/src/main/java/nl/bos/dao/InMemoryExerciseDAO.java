@@ -16,9 +16,10 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
 
     private InMemoryExerciseDAO() {
         this.exercises = FXCollections.observableArrayList();
-        exercises.add(new Exercise(0, "Definition of First Exercise", "test 2", new Image(DrawerManager.class.getResourceAsStream("/exercise1.png"))));
-        exercises.add(new Exercise(1, "Definition of Second Exercise", "test 3", new Image(DrawerManager.class.getResourceAsStream("/exercise2.png"))));
-        exercises.add(new Exercise(2, "Definition of Third Exercise", "test 4", new Image(DrawerManager.class.getResourceAsStream("/exercise3.png"))));
+
+        createExercise("Plank", "Lie straight with both forearms \nsupporting body; hold position", new Image(DrawerManager.class.getResourceAsStream("/exercise1.png")));
+        createExercise("Push-ups", "Lie prone with both arms stretched \nsupporting body; lower body with arms", new Image(DrawerManager.class.getResourceAsStream("/exercise2.png")));
+        createExercise("Superman", "Lie on stomach with arms extended straigth; \nRaise both arms and legs up off the floor; \nhold for 2 sec. return and repeat", new Image(DrawerManager.class.getResourceAsStream("/exercise3.png")));
     }
 
     public static ExerciseDAO getInstance() {
@@ -34,7 +35,12 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
 
     @Override
     public Exercise createExercise(String name, String description, Image icon) {
-        Exercise exercise = new Exercise(getNextExerciseId(), name, description, icon);
+        Exercise exercise = new Exercise();
+        exercise.setId(getNextExerciseId());
+        exercise.setName(name);
+        exercise.setDescription(description);
+        exercise.setIcon(icon);
+
         exercises.add(exercise);
         return exercise;
     }

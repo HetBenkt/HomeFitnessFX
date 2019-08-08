@@ -1,5 +1,6 @@
 package nl.bos;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,7 +22,13 @@ public class ExerciseCell extends ListCell<Exercise> {
         description = new Text();
         icon = new ImageView();
 
-        exerciseContent = new HBox(icon, new VBox(name, description));
+        VBox iconBox = new VBox(icon);
+        iconBox.setAlignment(Pos.CENTER);
+
+        VBox textBox = new VBox(name, description);
+        textBox.setAlignment(Pos.CENTER_LEFT);
+
+        exerciseContent = new HBox(iconBox, textBox);
         exerciseContent.setSpacing(10);
     }
 
@@ -38,8 +45,8 @@ public class ExerciseCell extends ListCell<Exercise> {
             description.setText(item.getDescription());
 
             icon.setImage(item.getIcon());
-            icon.setFitHeight(icon.getImage().getHeight()/5);
-            icon.setFitWidth(icon.getImage().getWidth()/5);
+            icon.setFitHeight(icon.getImage().getHeight()/3);
+            icon.setFitWidth(icon.getImage().getWidth()/3);
 
             setGraphic(exerciseContent);
         }

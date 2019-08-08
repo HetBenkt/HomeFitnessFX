@@ -1,5 +1,6 @@
 package nl.bos;
 
+import com.gluonhq.charm.down.common.JavaFXPlatform;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.license.License;
 import com.gluonhq.charm.glisten.mvc.View;
@@ -33,7 +34,13 @@ public class HomeFitnessFX extends MobileApplication {
 
     @Override
     public void postInit(Scene scene) {
-        Swatch.BLUE.assignTo(scene);
+        Swatch.INDIGO.assignTo(scene);
+
+        if(JavaFXPlatform.isDesktop()){
+            double ratio = 3.5D;
+            scene.getWindow().setWidth(1440/ratio);
+            scene.getWindow().setHeight(2960/ratio);
+        }
 
         scene.getStylesheets().add(HomeFitnessFX.class.getResource("style.css").toExternalForm());
     }

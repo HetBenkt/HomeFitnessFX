@@ -3,9 +3,10 @@
 <?import com.gluonhq.charm.glisten.mvc.View?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<View fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="350.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.MainPresenter">
-   <ListView fx:id="lvExercises" BorderPane.alignment="CENTER"/>
+<View fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.MainPresenter">
+   <VBox BorderPane.alignment="CENTER">
+      <ListView fx:id="lvExercises" prefHeight="700.0" />
+   </VBox>
 </View>
