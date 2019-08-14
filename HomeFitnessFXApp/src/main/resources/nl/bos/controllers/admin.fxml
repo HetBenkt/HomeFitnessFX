@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.gluonhq.charm.glisten.mvc.View?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-
-
 <View fx:id="admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="845.0" prefWidth="325.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/8"
+      prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.AdminPresenter">
-   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-      <Label text="This is Admin!"/>
+    <VBox BorderPane.alignment="CENTER">
+        <ListView fx:id="lvPlanningCards" prefHeight="700.0"/>
    </VBox>
 </View>

@@ -36,7 +36,7 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
     @Override
     public Exercise createExercise(String name, String description, Image icon) {
         Exercise exercise = new Exercise();
-        exercise.setId(getNextExerciseId());
+        exercise.setId(getNextId());
         exercise.setName(name);
         exercise.setDescription(description);
         exercise.setIcon(icon);
@@ -63,7 +63,7 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
     }
 
     @Override
-    public long getNextExerciseId() {
+    public long getNextId() {
         return ++currentId;
     }
 }

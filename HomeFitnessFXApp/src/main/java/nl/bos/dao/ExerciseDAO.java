@@ -5,7 +5,7 @@ import nl.bos.models.Exercise;
 
 import java.util.List;
 
-public interface ExerciseDAO {
+public interface ExerciseDAO extends GenericDAO {
 
     List<Exercise> getAllExercises();
 
@@ -16,6 +16,4 @@ public interface ExerciseDAO {
     boolean deleteExercise(long id);
 
     boolean updateExercise(long id);
-
-    long getNextExerciseId();
 }

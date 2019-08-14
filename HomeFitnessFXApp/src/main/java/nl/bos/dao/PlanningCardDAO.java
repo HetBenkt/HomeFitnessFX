@@ -6,11 +6,11 @@ import nl.bos.models.PlanningCard;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PlanningCardDAO {
+public interface PlanningCardDAO extends GenericDAO {
 
     List<PlanningCard> getAllPlanningCards();
 
-    Exercise createPlanningCard(LocalDate date, Exercise exercise, int reps, int sets, String unit);
+    Exercise createPlanningCard(LocalDate date, Exercise exercise);
 
     Exercise getPlanningCard(long id);
 
@@ -19,6 +19,4 @@ public interface PlanningCardDAO {
     boolean updatePlanningCard(long id);
 
     boolean copyPlanningCard(long id);
-
-    long getNextPlanningCardId();
 }

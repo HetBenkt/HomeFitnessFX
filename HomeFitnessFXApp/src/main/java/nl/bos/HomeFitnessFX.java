@@ -7,14 +7,15 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.Swatch;
 import javafx.scene.Scene;
 import nl.bos.controllers.AdminView;
+import nl.bos.controllers.ExercisesView;
 import nl.bos.controllers.MainView;
+import nl.bos.controllers.PlanningCardView;
 
+import static nl.bos.IConstants.*;
 
 @License(key = "7e71ebf2-bb31-44b7-806e-2cb0e3a7f4ba")
 public class HomeFitnessFX extends MobileApplication {
 
-    static final String MAIN_VIEW = HOME_VIEW;
-    static final String ADMIN_VIEW = "Admin View";
 
     private static View getMain() {
         return new MainView().getView();
@@ -24,10 +25,20 @@ public class HomeFitnessFX extends MobileApplication {
         return new AdminView().getView();
     }
 
+    private static View getPlanningCard() {
+        return new PlanningCardView().getView();
+    }
+
+    private static View getExercises() {
+        return new ExercisesView().getView();
+    }
+
     @Override
     public void init() {
-        addViewFactory(MAIN_VIEW, HomeFitnessFX::getMain);
+        addViewFactory(HOME_VIEW, HomeFitnessFX::getMain);
         addViewFactory(ADMIN_VIEW, HomeFitnessFX::getAdmin);
+        addViewFactory(EXERCISES_VIEW, HomeFitnessFX::getExercises);
+        addViewFactory(CREATE_PLANNING_CARD, HomeFitnessFX::getPlanningCard);
 
         DrawerManager.buildDrawer(this);
     }

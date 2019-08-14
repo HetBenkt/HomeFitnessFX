@@ -7,10 +7,9 @@ import java.util.List;
 public class PlanningCard {
     private long id;
     private LocalDate date;
+    private String name;
+    private String description;
     private final List<Exercise> exercises = new ArrayList<>();
-    private int reps;
-    private int sets;
-    private String unit;
 
     public long getId() {
         return id;
@@ -40,27 +39,19 @@ public class PlanningCard {
         return exercises;
     }
 
-    public int getReps() {
-        return reps;
+    public String getName() {
+        return name;
     }
 
-    public void setReps(int reps) {
-        this.reps = reps;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getSets() {
-        return sets;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSets(int sets) {
-        this.sets = sets;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
