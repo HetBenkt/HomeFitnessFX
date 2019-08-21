@@ -27,8 +27,8 @@ public class PlanningCard {
         this.date = date;
     }
 
-    public boolean addExercise(Exercise exercise) {
-        return exercises.add(exercise);
+    public boolean addExercises(List<Exercise> exercises) {
+        return exercises.addAll(exercises);
     }
 
     public boolean removeExercise(Exercise exercise) {

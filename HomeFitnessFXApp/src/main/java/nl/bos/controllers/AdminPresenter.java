@@ -9,6 +9,7 @@ import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import nl.bos.Controllers;
 import nl.bos.PlanningCardCell;
 import nl.bos.services.PlanningCardService;
 
@@ -37,6 +38,7 @@ public class AdminPresenter {
 
     @FXML
     private void initialize() {
+        Controllers.put(this.getClass().getSimpleName(), this);
         lvPlanningCards.setCellFactory(param -> new PlanningCardCell());
         lvPlanningCards.getItems().addAll(planningCardService.getAllPlanningCards());
 
@@ -56,5 +58,10 @@ public class AdminPresenter {
                         Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Favorite", e)));
             }
         });
+    }
+
+    void updatePlanningCards() {
+        lvPlanningCards.getItems().clear();
+        lvPlanningCards.getItems().setAll(planningCardService.getAllPlanningCards());
     }
 }

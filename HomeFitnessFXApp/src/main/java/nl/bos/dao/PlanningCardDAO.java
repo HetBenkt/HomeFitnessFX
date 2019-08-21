@@ -10,9 +10,9 @@ public interface PlanningCardDAO extends GenericDAO {
 
     List<PlanningCard> getAllPlanningCards();
 
-    Exercise createPlanningCard(LocalDate date, Exercise exercise);
+    PlanningCard createPlanningCard(String name, String description, LocalDate date, List<Exercise> exercises);
 
-    Exercise getPlanningCard(long id);
+    PlanningCard getPlanningCard(long id);
 
     boolean deletePlanningCard(long id);
 

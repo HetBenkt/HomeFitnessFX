@@ -29,18 +29,20 @@ public class InMemoryPlanningCardDAO implements PlanningCardDAO {
     }
 
     @Override
-    public Exercise createPlanningCard(LocalDate date, Exercise exercise) {
+    public PlanningCard createPlanningCard(String name, String description, LocalDate date, List<Exercise> exercises) {
         PlanningCard planningCard = new PlanningCard();
         planningCard.setId(getNextId());
         planningCard.setDate(date);
-        planningCard.addExercise(exercise);
+        planningCard.setName(name);
+        planningCard.setDescription(description);
+        planningCard.addExercises(exercises);
 
         planningCards.add(planningCard);
-        return exercise;
+        return planningCard;
     }
 
     @Override
-    public Exercise getPlanningCard(long id) {
+    public PlanningCard getPlanningCard(long id) {
         return null;
     }
 

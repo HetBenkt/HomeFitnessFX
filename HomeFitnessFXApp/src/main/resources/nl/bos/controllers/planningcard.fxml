@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.TextArea?>
+<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import com.gluonhq.charm.glisten.mvc.View?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<View xmlns:fx="http://javafx.com/fxml/1" fx:id="planningcard" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<View xmlns:fx="http://javafx.com/fxml/1" fx:id="planningCard" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
       xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.PlanningCardPresenter">
-    <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-        <TextField/>
-        <TextArea prefHeight="200.0" prefWidth="200.0"/>
-        <DatePicker/>
-        <ListView prefHeight="200.0" prefWidth="200.0"/>
-    </VBox>
+    <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="75.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Label text="Name"/>
+        <TextField fx:id="tfName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </TextField>
+        <Label text="Description" GridPane.rowIndex="1"/>
+        <TextArea fx:id="taDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                  GridPane.rowIndex="1"/>
+        <Label text="Date" GridPane.rowIndex="2"/>
+        <VBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
+            <Label text="Excercises"/>
+            <Button mnemonicParsing="false" onAction="#addExercise" text="Add">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+        <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <ListView fx:id="lvExercises" onMouseClicked="#removeExercise" prefHeight="200.0" prefWidth="200.0"
+                  GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </GridPane>
 </View>
