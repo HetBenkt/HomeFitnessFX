@@ -9,6 +9,7 @@ import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
 import nl.bos.controllers.MainView;
 import nl.bos.services.ExerciseService;
@@ -36,6 +37,7 @@ public class ExercisesPresenter {
 
     @FXML
     private void initialize() {
+        Controllers.put(this.getClass().getSimpleName(), this);
         lvExercises.setCellFactory(param -> new ExerciseCell());
         lvExercises.getItems().addAll(exerciseService.getAllExercises());
 
@@ -55,5 +57,10 @@ public class ExercisesPresenter {
                         Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, e)));
             }
         });
+    }
+
+    public void updateExercises() {
+        lvExercises.getItems().clear();
+        lvExercises.getItems().setAll(exerciseService.getAllExercises());
     }
 }
