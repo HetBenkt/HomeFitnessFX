@@ -4,9 +4,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<View xmlns:fx="http://javafx.com/fxml/1" fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<View xmlns:fx="http://javafx.com/fxml/1" fx:id="exercises" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
-      xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.ExercisesPresenter">
+      xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.exercises.ExercisesPresenter">
     <VBox BorderPane.alignment="CENTER">
         <ListView fx:id="lvExercises" prefHeight="700.0"/>
     </VBox>

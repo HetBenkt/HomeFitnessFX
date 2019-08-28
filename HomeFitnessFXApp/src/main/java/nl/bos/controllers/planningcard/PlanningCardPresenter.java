@@ -1,4 +1,4 @@
-package nl.bos.controllers;
+package nl.bos.controllers.planningcard;
 
 import com.gluonhq.charm.glisten.animation.BounceInRightTransition;
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -14,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import nl.bos.Controllers;
+import nl.bos.controllers.MainView;
+import nl.bos.controllers.planningcards.PlanningCardsPresenter;
 import nl.bos.models.Exercise;
 import nl.bos.services.ExerciseService;
 import nl.bos.services.PlanningCardService;

@@ -4,9 +4,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<View fx:id="admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<View xmlns:fx="http://javafx.com/fxml/1" fx:id="planningCards" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
       prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.PlanningCardsPresenter">
+      minWidth="-Infinity" fx:controller="nl.bos.controllers.planningcards.PlanningCardsPresenter">
     <VBox BorderPane.alignment="CENTER">
         <ListView fx:id="lvPlanningCards" prefHeight="700.0"/>
    </VBox>

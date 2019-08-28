@@ -1,4 +1,4 @@
-package nl.bos.controllers;
+package nl.bos.controllers.planningcards;
 
 import com.gluonhq.charm.glisten.animation.BounceInRightTransition;
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import nl.bos.Controllers;
 import nl.bos.PlanningCardCell;
+import nl.bos.controllers.MainView;
 import nl.bos.services.PlanningCardService;
 
 import java.util.logging.Level;
@@ -22,7 +23,7 @@ public class PlanningCardsPresenter {
 
     private final PlanningCardService planningCardService;
     @FXML
-    private View admin;
+    private View planningCards;
     @FXML
     private ListView lvPlanningCards;
 
@@ -42,13 +43,13 @@ public class PlanningCardsPresenter {
         lvPlanningCards.setCellFactory(param -> new PlanningCardCell());
         lvPlanningCards.getItems().addAll(planningCardService.getAllPlanningCards());
 
-        admin.setShowTransitionFactory(BounceInRightTransition::new);
+        planningCards.setShowTransitionFactory(BounceInRightTransition::new);
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.CREATE.text,
                 PlanningCardsPresenter::create);
-        fab.showOn(admin);
-        
-        admin.showingProperty().addListener((obs, oldValue, newValue) -> {
+        fab.showOn(planningCards);
+
+        planningCards.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
@@ -60,7 +61,7 @@ public class PlanningCardsPresenter {
         });
     }
 
-    void updatePlanningCards() {
+    public void updatePlanningCards() {
         lvPlanningCards.getItems().clear();
         lvPlanningCards.getItems().setAll(planningCardService.getAllPlanningCards());
     }

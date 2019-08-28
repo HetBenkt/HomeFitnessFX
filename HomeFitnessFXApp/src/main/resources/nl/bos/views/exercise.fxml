@@ -6,9 +6,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<View xmlns:fx="http://javafx.com/fxml/1" fx:id="planningCard" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
-      xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.PlanningCardPresenter">
+<View xmlns:fx="http://javafx.com/fxml/1" fx:id="exercise" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
+      xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.exercise.ExercisePresenter">
     <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="75.0"/>
@@ -32,14 +33,14 @@
         <Label text="Date" GridPane.rowIndex="2"/>
         <VBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
             <Label text="Excercises"/>
-            <Button mnemonicParsing="false" onAction="#addExercise" text="Add">
+            <Button mnemonicParsing="false" text="Add">
                 <VBox.margin>
                     <Insets top="5.0"/>
                 </VBox.margin>
             </Button>
         </VBox>
         <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <ListView fx:id="lvExercises" onMouseClicked="#removeExercise" prefHeight="200.0" prefWidth="200.0"
+        <ListView fx:id="lvExercises" prefHeight="200.0" prefWidth="200.0"
                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

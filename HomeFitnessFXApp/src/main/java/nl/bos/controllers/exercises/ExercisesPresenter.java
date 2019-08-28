@@ -1,4 +1,4 @@
-package nl.bos.controllers;
+package nl.bos.controllers.exercises;
 
 import com.gluonhq.charm.glisten.animation.BounceInRightTransition;
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import nl.bos.ExerciseCell;
+import nl.bos.controllers.MainView;
 import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ import static nl.bos.IConstants.CREATE_EXERCISE;
 public class ExercisesPresenter {
     private final ExerciseService exerciseService;
     @FXML
-    private View main;
+    private View exercises;
     @FXML
     private ListView lvExercises;
 
@@ -38,13 +39,13 @@ public class ExercisesPresenter {
         lvExercises.setCellFactory(param -> new ExerciseCell());
         lvExercises.getItems().addAll(exerciseService.getAllExercises());
 
-        main.setShowTransitionFactory(BounceInRightTransition::new);
+        exercises.setShowTransitionFactory(BounceInRightTransition::new);
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.CREATE.text,
                 ExercisesPresenter::create);
-        fab.showOn(main);
+        fab.showOn(exercises);
 
-        main.showingProperty().addListener((obs, oldValue, newValue) -> {
+        exercises.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->

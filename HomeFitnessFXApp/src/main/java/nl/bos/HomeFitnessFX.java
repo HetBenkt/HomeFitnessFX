@@ -6,7 +6,11 @@ import com.gluonhq.charm.glisten.license.License;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.Swatch;
 import javafx.scene.Scene;
-import nl.bos.controllers.*;
+import nl.bos.controllers.MainView;
+import nl.bos.controllers.exercise.ExerciseView;
+import nl.bos.controllers.exercises.ExercisesView;
+import nl.bos.controllers.planningcard.PlanningCardView;
+import nl.bos.controllers.planningcards.PlanningCardsView;
 
 import static nl.bos.IConstants.*;
 
