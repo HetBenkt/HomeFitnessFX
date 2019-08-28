@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 import static nl.bos.IConstants.CREATE_PLANNING_CARD;
 
-public class AdminPresenter {
+public class PlanningCardsPresenter {
 
     private final PlanningCardService planningCardService;
     @FXML
@@ -27,7 +27,7 @@ public class AdminPresenter {
     private ListView lvPlanningCards;
 
 
-    public AdminPresenter() {
+    public PlanningCardsPresenter() {
         this.planningCardService = new PlanningCardService();
     }
 
@@ -45,7 +45,7 @@ public class AdminPresenter {
         admin.setShowTransitionFactory(BounceInRightTransition::new);
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.CREATE.text,
-                AdminPresenter::create);
+                PlanningCardsPresenter::create);
         fab.showOn(admin);
         
         admin.showingProperty().addListener((obs, oldValue, newValue) -> {

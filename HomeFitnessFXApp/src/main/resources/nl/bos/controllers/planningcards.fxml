@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <View fx:id="admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.AdminPresenter">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.bos.controllers.PlanningCardsPresenter">
     <VBox BorderPane.alignment="CENTER">
         <ListView fx:id="lvPlanningCards" prefHeight="700.0"/>
    </VBox>

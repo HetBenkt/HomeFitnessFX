@@ -6,10 +6,7 @@ import com.gluonhq.charm.glisten.license.License;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.Swatch;
 import javafx.scene.Scene;
-import nl.bos.controllers.AdminView;
-import nl.bos.controllers.ExercisesView;
-import nl.bos.controllers.MainView;
-import nl.bos.controllers.PlanningCardView;
+import nl.bos.controllers.*;
 
 import static nl.bos.IConstants.*;
 
@@ -21,8 +18,8 @@ public class HomeFitnessFX extends MobileApplication {
         return new MainView().getView();
     }
 
-    private static View getAdmin() {
-        return new AdminView().getView();
+    private static View getPlanningCards() {
+        return new PlanningCardsView().getView();
     }
 
     private static View getPlanningCard() {
@@ -33,15 +30,23 @@ public class HomeFitnessFX extends MobileApplication {
         return new ExercisesView().getView();
     }
 
+    private static View getExcercise() {
+        return new ExerciseView().getView();
+    }
+
     @Override
     public void init() {
         addViewFactory(HOME_VIEW, HomeFitnessFX::getMain);
-        addViewFactory(ADMIN_VIEW, HomeFitnessFX::getAdmin);
-        addViewFactory(EXERCISES_VIEW, HomeFitnessFX::getExercises);
+
+        addViewFactory(VIEW_PLANNING_CARDS, HomeFitnessFX::getPlanningCards);
         addViewFactory(CREATE_PLANNING_CARD, HomeFitnessFX::getPlanningCard);
+
+        addViewFactory(VIEW_EXERCISES, HomeFitnessFX::getExercises);
+        addViewFactory(CREATE_EXERCISE, HomeFitnessFX::getExcercise);
 
         DrawerManager.buildDrawer(this);
     }
+
 
     @Override
     public void postInit(Scene scene) {

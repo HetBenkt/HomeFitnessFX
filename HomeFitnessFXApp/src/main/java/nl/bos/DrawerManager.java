@@ -13,8 +13,8 @@ import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.scene.image.Image;
 
 import static com.gluonhq.charm.glisten.application.MobileApplication.HOME_VIEW;
-import static nl.bos.IConstants.ADMIN_VIEW;
-import static nl.bos.IConstants.EXERCISES_VIEW;
+import static nl.bos.IConstants.VIEW_EXERCISES;
+import static nl.bos.IConstants.VIEW_PLANNING_CARDS;
 
 public class DrawerManager {
 
@@ -30,8 +30,8 @@ public class DrawerManager {
         drawer.setHeader(header);
 
         final Item mainItem = new ViewItem("Home", MaterialDesignIcon.HOME.graphic(), HOME_VIEW, ViewStackPolicy.SKIP);
-        final Item exercisesItem = new ViewItem("Exercises", MaterialDesignIcon.DASHBOARD.graphic(), EXERCISES_VIEW);
-        final Item adminItem = new ViewItem("Administration", MaterialDesignIcon.DASHBOARD.graphic(), ADMIN_VIEW);
+        final Item exercisesItem = new ViewItem("Exercises", MaterialDesignIcon.DASHBOARD.graphic(), VIEW_EXERCISES);
+        final Item adminItem = new ViewItem("PlanningCards", MaterialDesignIcon.DASHBOARD.graphic(), VIEW_PLANNING_CARDS);
         drawer.getItems().addAll(mainItem, exercisesItem, adminItem);
         
         if (Platform.isDesktop()) {

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static nl.bos.IConstants.ADMIN_VIEW;
+import static nl.bos.IConstants.VIEW_PLANNING_CARDS;
 
 public class PlanningCardPresenter {
     @FXML
@@ -44,9 +44,9 @@ public class PlanningCardPresenter {
     private void save(ActionEvent actionEvent) {
         Logger.getLogger(PlanningCardPresenter.class.getName()).log(Level.INFO, "Save PlanningCard", actionEvent);
         planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
-        AdminPresenter adminPresenter = (AdminPresenter) Controllers.get(AdminPresenter.class.getSimpleName());
-        adminPresenter.updatePlanningCards();
-        MobileApplication.getInstance().switchView(ADMIN_VIEW);
+        PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get(PlanningCardsPresenter.class.getSimpleName());
+        planningCardsPresenter.updatePlanningCards();
+        MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
     }
 
     @FXML
