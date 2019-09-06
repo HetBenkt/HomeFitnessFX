@@ -15,5 +15,5 @@ public interface ExerciseDAO extends GenericDAO {
 
     boolean deleteExercise(long id);
 
-    boolean updateExercise(long id);
+    Exercise updateExercise(long id, String name, String description);
 }

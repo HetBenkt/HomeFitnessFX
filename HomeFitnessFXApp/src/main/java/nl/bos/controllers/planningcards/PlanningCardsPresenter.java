@@ -17,7 +17,7 @@ import nl.bos.services.PlanningCardService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static nl.bos.IConstants.CREATE_PLANNING_CARD;
+import static nl.bos.IConstants.EDIT_PLANNING_CARD;
 
 public class PlanningCardsPresenter {
 
@@ -34,7 +34,7 @@ public class PlanningCardsPresenter {
 
     private static void create(ActionEvent e) {
         Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Create new PlanningCard", e);
-        MobileApplication.getInstance().switchView(CREATE_PLANNING_CARD);
+        MobileApplication.getInstance().switchView(EDIT_PLANNING_CARD);
     }
 
     @FXML

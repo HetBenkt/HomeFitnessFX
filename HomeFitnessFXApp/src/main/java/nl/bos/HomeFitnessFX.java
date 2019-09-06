@@ -43,10 +43,10 @@ public class HomeFitnessFX extends MobileApplication {
         addViewFactory(HOME_VIEW, HomeFitnessFX::getMain);
 
         addViewFactory(VIEW_PLANNING_CARDS, HomeFitnessFX::getPlanningCards);
-        addViewFactory(CREATE_PLANNING_CARD, HomeFitnessFX::getPlanningCard);
+        addViewFactory(EDIT_PLANNING_CARD, HomeFitnessFX::getPlanningCard);
 
         addViewFactory(VIEW_EXERCISES, HomeFitnessFX::getExercises);
-        addViewFactory(CREATE_EXERCISE, HomeFitnessFX::getExcercise);
+        addViewFactory(EDIT_EXERCISE, HomeFitnessFX::getExcercise);
 
         DrawerManager.buildDrawer(this);
     }

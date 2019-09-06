@@ -21,4 +21,12 @@ public class ExerciseService {
     public Exercise createExercise(String name, String description, Image icon) {
         return exerciseDAO.createExercise(name, description, icon);
     }
+
+    public Exercise getExercise(long id) {
+        return exerciseDAO.getExercise(id);
+    }
+
+    public Exercise updateExercise(long id, String name, String description) {
+        return exerciseDAO.updateExercise(id, name, description);
+    }
 }

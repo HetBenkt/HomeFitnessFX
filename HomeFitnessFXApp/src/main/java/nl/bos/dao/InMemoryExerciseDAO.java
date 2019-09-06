@@ -58,8 +58,11 @@ public class InMemoryExerciseDAO implements ExerciseDAO {
     }
 
     @Override
-    public boolean updateExercise(long id) {
-        return false;
+    public Exercise updateExercise(long id, String name, String description) {
+        Exercise exercise = getExercise(id);
+        exercise.setName(name);
+        exercise.setDescription(description);
+        return exercise;
     }
 
     @Override

@@ -15,6 +15,7 @@ import nl.bos.Controllers;
 import nl.bos.DrawerManager;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.exercises.ExercisesPresenter;
+import nl.bos.models.Exercise;
 import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
@@ -33,6 +34,7 @@ public class ExercisePresenter {
 
     @FXML
     private View exercise;
+    private long currentExerciseId = -1;
 
     public ExercisePresenter() {
         exerciseService = new ExerciseService();
@@ -40,14 +42,27 @@ public class ExercisePresenter {
 
     private void save(ActionEvent actionEvent) {
         Logger.getLogger(ExercisePresenter.class.getName()).log(Level.INFO, "Save Exercise", actionEvent);
-        exerciseService.createExercise(tfName.getText(), taDescription.getText(), new Image(DrawerManager.class.getResourceAsStream("/icon.png")));
+        if (currentExerciseId == -1) {
+            exerciseService.createExercise(tfName.getText(), taDescription.getText(), new Image(DrawerManager.class.getResourceAsStream("/icon.png")));
+            cleanFormFields();
+        } else {
+            exerciseService.updateExercise(currentExerciseId, tfName.getText(), taDescription.getText());
+            cleanFormFields();
+            currentExerciseId = -1;
+        }
         ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get(ExercisesPresenter.class.getSimpleName());
         exercisesPresenter.updateExercises();
         MobileApplication.getInstance().switchView(VIEW_EXERCISES);
     }
 
+    private void cleanFormFields() {
+        tfName.setText("");
+        taDescription.setText("");
+    }
+
     @FXML
     private void initialize() {
+        Controllers.put(this.getClass().getSimpleName(), this);
         exercise.setShowTransitionFactory(BounceInRightTransition::new);
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.SAVE.text,
@@ -59,10 +74,16 @@ public class ExercisePresenter {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
                         MobileApplication.getInstance().getDrawer().open()));
-                appBar.setTitleText("New Exercise");
+                appBar.setTitleText("Exercise");
                 appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e ->
                         Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, e)));
             }
         });
+    }
+
+    public void updateFields(Exercise exercise) {
+        this.currentExerciseId = exercise.getId();
+        tfName.setText(exercise.getName());
+        taDescription.setText(exercise.getDescription());
     }
 }
