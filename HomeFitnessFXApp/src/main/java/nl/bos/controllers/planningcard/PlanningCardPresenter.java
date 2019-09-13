@@ -17,9 +17,11 @@ import nl.bos.Controllers;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.planningcards.PlanningCardsPresenter;
 import nl.bos.models.Exercise;
+import nl.bos.models.PlanningCard;
 import nl.bos.services.ExerciseService;
 import nl.bos.services.PlanningCardService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +40,7 @@ public class PlanningCardPresenter {
     @FXML
     private DatePicker dpDate;
     private PlanningCardService planningCardService;
+    private long currentPlanningCardId = -1;
 
     public PlanningCardPresenter() {
         planningCardService = new PlanningCardService();
@@ -45,15 +48,33 @@ public class PlanningCardPresenter {
 
     private void save(ActionEvent actionEvent) {
         Logger.getLogger(PlanningCardPresenter.class.getName()).log(Level.INFO, "Save PlanningCard", actionEvent);
-        planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
+
+        if (currentPlanningCardId == -1) {
+            planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
+            cleanFormFields();
+        } else {
+            planningCardService.updateExercise(currentPlanningCardId, tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
+            cleanFormFields();
+            currentPlanningCardId = -1;
+        }
+
         PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get(PlanningCardsPresenter.class.getSimpleName());
         planningCardsPresenter.updatePlanningCards();
         MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
     }
 
+    private void cleanFormFields() {
+        tfName.setText("");
+        taDescription.setText("");
+        dpDate.setValue(LocalDate.now());
+        lvExercises.getItems().clear();
+    }
+
     @FXML
     private void initialize() {
+        Controllers.put(this.getClass().getSimpleName(), this);
         planningCard.setShowTransitionFactory(BounceInRightTransition::new);
+        dpDate.setValue(LocalDate.now());
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.SAVE.text,
                 this::save);
@@ -94,5 +115,13 @@ public class PlanningCardPresenter {
         if (mouseEvent.getClickCount() == 2) {
             lvExercises.getItems().remove(lvExercises.getSelectionModel().getSelectedIndex());
         }
+    }
+
+    public void updateFields(PlanningCard planningCard) {
+        this.currentPlanningCardId = planningCard.getId();
+        tfName.setText(planningCard.getName());
+        taDescription.setText(planningCard.getDescription());
+        dpDate.setValue(planningCard.getDate());
+        lvExercises.getItems().addAll(planningCard.getExercises());
     }
 }

@@ -12,6 +12,8 @@ import javafx.scene.control.ListView;
 import nl.bos.Controllers;
 import nl.bos.PlanningCardCell;
 import nl.bos.controllers.MainView;
+import nl.bos.controllers.planningcard.PlanningCardPresenter;
+import nl.bos.models.PlanningCard;
 import nl.bos.services.PlanningCardService;
 
 import java.util.logging.Level;
@@ -42,6 +44,12 @@ public class PlanningCardsPresenter {
         Controllers.put(this.getClass().getSimpleName(), this);
         lvPlanningCards.setCellFactory(param -> new PlanningCardCell());
         lvPlanningCards.getItems().addAll(planningCardService.getAllPlanningCards());
+        lvPlanningCards.getSelectionModel().selectedItemProperty().addListener((observable, oldExercise, newPlanningCard) -> {
+            if (newPlanningCard != null) {
+                Logger.getLogger(PlanningCardsPresenter.class.getName()).info(((PlanningCard) newPlanningCard).getName());
+                edit(((PlanningCard) newPlanningCard).getId());
+            }
+        });
 
         planningCards.setShowTransitionFactory(BounceInRightTransition::new);
 
@@ -59,6 +67,13 @@ public class PlanningCardsPresenter {
                         Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Favorite", e)));
             }
         });
+    }
+
+    private void edit(long planningCardId) {
+        Logger.getLogger(PlanningCardsPresenter.class.getName()).log(Level.INFO, "Edit PlanningCard");
+        MobileApplication.getInstance().switchView(EDIT_PLANNING_CARD);
+        PlanningCardPresenter planningCardPresenter = (PlanningCardPresenter) Controllers.get("PlanningCardPresenter");
+        planningCardPresenter.updateFields(planningCardService.getPlanningCard(planningCardId));
     }
 
     public void updatePlanningCards() {

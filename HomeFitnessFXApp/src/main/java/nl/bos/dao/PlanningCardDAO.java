@@ -16,7 +16,7 @@ public interface PlanningCardDAO extends GenericDAO {
 
     boolean deletePlanningCard(long id);
 
-    boolean updatePlanningCard(long id);
+    PlanningCard updatePlanningCard(long id, String name, String description, LocalDate date, List<Exercise> exercises);
 
     boolean copyPlanningCard(long id);
 }

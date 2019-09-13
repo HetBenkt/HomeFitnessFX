@@ -7,6 +7,7 @@ import nl.bos.models.PlanningCard;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InMemoryPlanningCardDAO implements PlanningCardDAO {
     private ObservableList<PlanningCard> planningCards;
@@ -43,7 +44,9 @@ public class InMemoryPlanningCardDAO implements PlanningCardDAO {
 
     @Override
     public PlanningCard getPlanningCard(long id) {
-        return null;
+        return planningCards.stream()
+                .filter(planningCard -> planningCard.getId() == id)
+                .collect(Collectors.toList()).get(0);
     }
 
     @Override
@@ -52,8 +55,13 @@ public class InMemoryPlanningCardDAO implements PlanningCardDAO {
     }
 
     @Override
-    public boolean updatePlanningCard(long id) {
-        return false;
+    public PlanningCard updatePlanningCard(long id, String name, String description, LocalDate date, List<Exercise> exercises) {
+        PlanningCard planningCard = getPlanningCard(id);
+        planningCard.setName(name);
+        planningCard.setDescription(description);
+        planningCard.setDate(date);
+        planningCard.addExercises(exercises);
+        return planningCard;
     }
 
     @Override

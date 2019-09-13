@@ -42,6 +42,7 @@ public class ExercisePresenter {
 
     private void save(ActionEvent actionEvent) {
         Logger.getLogger(ExercisePresenter.class.getName()).log(Level.INFO, "Save Exercise", actionEvent);
+
         if (currentExerciseId == -1) {
             exerciseService.createExercise(tfName.getText(), taDescription.getText(), new Image(DrawerManager.class.getResourceAsStream("/icon.png")));
             cleanFormFields();
@@ -50,6 +51,7 @@ public class ExercisePresenter {
             cleanFormFields();
             currentExerciseId = -1;
         }
+
         ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get(ExercisesPresenter.class.getSimpleName());
         exercisesPresenter.updateExercises();
         MobileApplication.getInstance().switchView(VIEW_EXERCISES);
