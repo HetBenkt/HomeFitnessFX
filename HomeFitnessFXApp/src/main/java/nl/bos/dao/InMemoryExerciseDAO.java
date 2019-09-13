@@ -1,7 +1,6 @@
 package nl.bos.dao;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import nl.bos.DrawerManager;
 import nl.bos.models.Exercise;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InMemoryExerciseDAO implements ExerciseDAO {
-    private ObservableList<Exercise> exercises;
+    private List<Exercise> exercises;
     private long currentId = 0;
     private static ExerciseDAO instance;
 

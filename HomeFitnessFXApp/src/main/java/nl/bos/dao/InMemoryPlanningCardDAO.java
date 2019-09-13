@@ -1,7 +1,6 @@
 package nl.bos.dao;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import nl.bos.models.Exercise;
 import nl.bos.models.PlanningCard;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InMemoryPlanningCardDAO implements PlanningCardDAO {
-    private ObservableList<PlanningCard> planningCards;
+    private List<PlanningCard> planningCards;
     private long currentId = 0;
     private static PlanningCardDAO instance;
 
