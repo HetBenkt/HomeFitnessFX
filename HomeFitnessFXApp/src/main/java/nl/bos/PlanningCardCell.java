@@ -8,13 +8,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import nl.bos.controllers.planningcards.PlanningCardsPresenter;
 import nl.bos.models.PlanningCard;
+
+import java.util.logging.Logger;
 
 public class PlanningCardCell extends ListCell<PlanningCard> {
     private Text description;
     private Text name;
     private DatePicker date;
     private HBox exerciseContent;
+    private PlanningCard planningCard;
 
     public PlanningCardCell() {
         super();
@@ -27,21 +31,30 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
 
         exerciseContent = new HBox(textBox);
         exerciseContent.setSpacing(10);
+
+        this.setOnMouseClicked(event -> {
+            Logger.getLogger(ExerciseCell.class.getName()).info(planningCard.getName());
+            this.listViewProperty().get().getSelectionModel().select(planningCard);
+            PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
+            planningCardsPresenter.edit(planningCard.getId());
+        });
+
     }
 
     @Override
-    protected void updateItem(PlanningCard item, boolean empty) {
-        super.updateItem(item, empty);
-        if (empty || item == null) {
+    protected void updateItem(PlanningCard planningCard, boolean empty) {
+        super.updateItem(planningCard, empty);
+        if (empty || planningCard == null) {
             setGraphic(null);
         } else {
+            this.planningCard = planningCard;
             name.setFont(Font.font("Verdana", 14));
-            name.setText(item.getName());
+            name.setText(planningCard.getName());
 
             description.setFont(Font.font("Verdana", FontPosture.ITALIC, 10));
-            description.setText(item.getDescription());
+            description.setText(planningCard.getDescription());
 
-            date.setValue(item.getDate());
+            date.setValue(planningCard.getDate());
 
             setGraphic(exerciseContent);
         }
