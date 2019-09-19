@@ -33,10 +33,12 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
-            Logger.getLogger(ExerciseCell.class.getName()).info(planningCard.getName());
-            this.listViewProperty().get().getSelectionModel().select(planningCard);
-            PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
-            planningCardsPresenter.edit(planningCard.getId());
+            if (planningCard != null) {
+                Logger.getLogger(ExerciseCell.class.getName()).info(planningCard.getName());
+                this.listViewProperty().get().getSelectionModel().select(planningCard);
+                PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
+                planningCardsPresenter.edit(planningCard.getId());
+            }
         });
 
     }

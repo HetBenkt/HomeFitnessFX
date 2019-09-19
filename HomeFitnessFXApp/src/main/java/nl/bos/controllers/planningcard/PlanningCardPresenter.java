@@ -3,17 +3,16 @@ package nl.bos.controllers.planningcard;
 import com.gluonhq.charm.glisten.animation.BounceInRightTransition;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.*;
-import com.gluonhq.charm.glisten.control.Dialog;
-import com.gluonhq.charm.glisten.control.TextArea;
-import com.gluonhq.charm.glisten.control.TextField;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import nl.bos.Controllers;
+import nl.bos.ExerciseSelectionCell;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.planningcards.PlanningCardsPresenter;
 import nl.bos.models.Exercise;
@@ -75,6 +74,7 @@ public class PlanningCardPresenter {
         Controllers.put(this.getClass().getSimpleName(), this);
         planningCard.setShowTransitionFactory(BounceInRightTransition::new);
         dpDate.setValue(LocalDate.now());
+        lvExercises.setCellFactory(param -> new ExerciseSelectionCell(false));
 
         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.SAVE.text,
                 this::save);
@@ -97,7 +97,7 @@ public class PlanningCardPresenter {
         Dialog dialog = new Dialog();
         dialog.setTitle(new Label("Select your exercises"));
         ListView<Exercise> exercises = new ListView<>();
-        exercises.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        exercises.setCellFactory(param -> new ExerciseSelectionCell(true));
         exercises.getItems().clear();
         exercises.getItems().addAll(new ExerciseService().getAllExercises());
         dialog.setContent(exercises);
@@ -110,18 +110,15 @@ public class PlanningCardPresenter {
         dialog.showAndWait();
     }
 
-    @FXML
-    private void removeExercise(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 2) {
-            lvExercises.getItems().remove(lvExercises.getSelectionModel().getSelectedIndex());
-        }
-    }
-
     public void updateFields(PlanningCard planningCard) {
         this.currentPlanningCardId = planningCard.getId();
         tfName.setText(planningCard.getName());
         taDescription.setText(planningCard.getDescription());
         dpDate.setValue(planningCard.getDate());
         lvExercises.getItems().addAll(planningCard.getExercises());
+    }
+
+    public void remove(Exercise exercise) {
+        lvExercises.getItems().remove(exercise);
     }
 }

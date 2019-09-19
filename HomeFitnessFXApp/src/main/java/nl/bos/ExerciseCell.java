@@ -36,10 +36,12 @@ public class ExerciseCell extends ListCell<Exercise> {
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
-            Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
-            this.listViewProperty().get().getSelectionModel().select(exercise);
-            ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
-            exercisesPresenter.edit(exercise.getId());
+            if (exercise != null) {
+                Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
+                this.listViewProperty().get().getSelectionModel().select(exercise);
+                ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
+                exercisesPresenter.edit(exercise.getId());
+            }
         });
     }
 
