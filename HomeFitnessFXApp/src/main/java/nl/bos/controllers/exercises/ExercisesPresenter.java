@@ -13,7 +13,6 @@ import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.exercise.ExercisePresenter;
-import nl.bos.models.Exercise;
 import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
@@ -42,12 +41,6 @@ public class ExercisesPresenter {
         Controllers.put(this.getClass().getSimpleName(), this);
         lvExercises.setCellFactory(param -> new ExerciseCell());
         lvExercises.getItems().addAll(exerciseService.getAllExercises());
-        lvExercises.getSelectionModel().selectedItemProperty().addListener((observable, oldExercise, newExercise) -> {
-            if (newExercise != null) {
-                Logger.getLogger(ExercisesPresenter.class.getName()).info(((Exercise) newExercise).getName());
-                edit(((Exercise) newExercise).getId());
-            }
-        });
 
         exercises.setShowTransitionFactory(BounceInRightTransition::new);
 
@@ -67,7 +60,7 @@ public class ExercisesPresenter {
         });
     }
 
-    private void edit(long exerciseId) {
+    public void edit(long exerciseId) {
         Logger.getLogger(ExercisesPresenter.class.getName()).log(Level.INFO, "Edit Exercise");
         MobileApplication.getInstance().switchView(EDIT_EXERCISE);
         ExercisePresenter exercisePresenter = (ExercisePresenter) Controllers.get("ExercisePresenter");

@@ -8,13 +8,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import nl.bos.controllers.exercises.ExercisesPresenter;
 import nl.bos.models.Exercise;
+
+import java.util.logging.Logger;
 
 public class ExerciseCell extends ListCell<Exercise> {
     private Text description;
     private Text name;
     private ImageView icon;
     private HBox exerciseContent;
+    private Exercise exercise;
 
     public ExerciseCell() {
         super();
@@ -30,21 +34,29 @@ public class ExerciseCell extends ListCell<Exercise> {
 
         exerciseContent = new HBox(iconBox, textBox);
         exerciseContent.setSpacing(10);
+
+        this.setOnMouseClicked(event -> {
+            Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
+            this.listViewProperty().get().getSelectionModel().select(exercise);
+            ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
+            exercisesPresenter.edit(exercise.getId());
+        });
     }
 
     @Override
-    protected void updateItem(Exercise item, boolean empty) {
-        super.updateItem(item, empty);
-        if (empty || item == null) {
+    protected void updateItem(Exercise exercise, boolean empty) {
+        super.updateItem(exercise, empty);
+        if (empty || exercise == null) {
             setGraphic(null);
         } else {
+            this.exercise = exercise;
             name.setFont(Font.font ("Verdana", 14));
-            name.setText(item.getName());
+            name.setText(exercise.getName());
 
             description.setFont(Font.font ("Verdana", FontPosture.ITALIC, 10));
-            description.setText(item.getDescription());
+            description.setText(exercise.getDescription());
 
-            icon.setImage(item.getIcon());
+            icon.setImage(exercise.getIcon());
             icon.setFitHeight(icon.getImage().getHeight()/3);
             icon.setFitWidth(icon.getImage().getWidth()/3);
 
