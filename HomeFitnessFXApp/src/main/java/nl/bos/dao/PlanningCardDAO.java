@@ -19,4 +19,6 @@ public interface PlanningCardDAO extends GenericDAO {
     PlanningCard updatePlanningCard(long id, String name, String description, LocalDate date, List<Exercise> exercises);
 
     boolean copyPlanningCard(long id);
+
+    PlanningCard getPlanningCardToday();
 }

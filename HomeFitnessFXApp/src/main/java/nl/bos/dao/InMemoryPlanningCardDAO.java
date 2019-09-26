@@ -1,10 +1,13 @@
 package nl.bos.dao;
 
 import javafx.collections.FXCollections;
+import javafx.scene.image.Image;
+import nl.bos.DrawerManager;
 import nl.bos.models.Exercise;
 import nl.bos.models.PlanningCard;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +18,11 @@ public class InMemoryPlanningCardDAO implements PlanningCardDAO {
 
     private InMemoryPlanningCardDAO() {
         this.planningCards = FXCollections.observableArrayList();
+        ExerciseDAO exerciseDAO = InMemoryExerciseDAO.getInstance();
+        Exercise exercise = exerciseDAO.createExercise("Plank", "Lie straight with both forearms \nsupporting body; hold position", new Image(DrawerManager.class.getResourceAsStream("/exercise1.png")));
+        List<Exercise> exercises = new ArrayList<>();
+        exercises.add(exercise);
+        createPlanningCard("First day", "", LocalDate.now(), exercises);
     }
 
     public static PlanningCardDAO getInstance() {
@@ -66,6 +74,13 @@ public class InMemoryPlanningCardDAO implements PlanningCardDAO {
     @Override
     public boolean copyPlanningCard(long id) {
         return false;
+    }
+
+    @Override
+    public PlanningCard getPlanningCardToday() {
+        return planningCards.stream()
+                .filter(planningCard -> planningCard.getDate().isEqual(LocalDate.now()))
+                .collect(Collectors.toList()).get(0);
     }
 
     @Override

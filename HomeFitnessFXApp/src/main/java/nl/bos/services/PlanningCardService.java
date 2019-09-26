@@ -27,6 +27,11 @@ public class PlanningCardService {
         return planningCardDAO.getPlanningCard(id);
     }
 
+    public PlanningCard getPlanningCardToday() {
+        return planningCardDAO.getPlanningCardToday();
+    }
+
+
     public void updateExercise(long id, String name, String description, LocalDate date, List<Exercise> exercises) {
         planningCardDAO.updatePlanningCard(id, name, description, date, exercises);
     }
