@@ -8,7 +8,7 @@ import nl.bos.models.Exercise;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryExerciseDAO implements ExerciseDAO {
+public class InMemoryExerciseDAO extends InMemoryDAO implements ExerciseDAO {
     private List<Exercise> exercises;
     private long currentId = 0;
     private static ExerciseDAO instance;

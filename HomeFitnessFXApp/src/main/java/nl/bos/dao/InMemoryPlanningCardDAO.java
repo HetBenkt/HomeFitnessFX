@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryPlanningCardDAO implements PlanningCardDAO {
+public class InMemoryPlanningCardDAO extends InMemoryDAO implements PlanningCardDAO {
     private List<PlanningCard> planningCards;
     private long currentId = 0;
     private static PlanningCardDAO instance;

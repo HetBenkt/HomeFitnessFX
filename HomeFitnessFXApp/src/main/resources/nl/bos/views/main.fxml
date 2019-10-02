@@ -2,6 +2,7 @@
 
 <?import com.gluonhq.charm.glisten.mvc.View?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <View xmlns:fx="http://javafx.com/fxml/1" fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -9,5 +10,6 @@
       xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.MainPresenter">
     <VBox BorderPane.alignment="CENTER">
         <ListView fx:id="lvExercises" prefHeight="700.0"/>
+        <TextArea fx:id="txaStatus" editable="false" prefHeight="200.0" prefWidth="200.0"/>
     </VBox>
 </View>

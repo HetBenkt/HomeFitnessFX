@@ -6,8 +6,10 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
+import nl.bos.services.MainService;
 import nl.bos.services.PlanningCardService;
 
 import java.util.logging.Level;
@@ -15,12 +17,16 @@ import java.util.logging.Logger;
 
 public class MainPresenter {
     private final PlanningCardService planningCardService;
+    private final MainService mainService;
     @FXML
     private View main;
     @FXML
     private ListView lvExercises;
+    @FXML
+    private TextArea txaStatus;
 
     public MainPresenter() {
+        mainService = new MainService();
         this.planningCardService = new PlanningCardService();
     }
 
@@ -29,6 +35,11 @@ public class MainPresenter {
         Controllers.put(this.getClass().getSimpleName(), this);
         lvExercises.setCellFactory(param -> new ExerciseCell());
         lvExercises.getItems().addAll(planningCardService.getPlanningCardToday().getExercises());
+
+        txaStatus.appendText(mainService.checkDriver());
+        txaStatus.appendText(System.lineSeparator());
+        txaStatus.appendText(mainService.createDatabase());
+        txaStatus.appendText(System.lineSeparator());
 
         main.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
