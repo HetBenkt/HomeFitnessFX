@@ -10,7 +10,15 @@ public class Exercise {
     private int reps;
     private int sets;
     private String unit;
+    private boolean isSelected;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public long getId() {
         return id;
@@ -70,6 +78,6 @@ public class Exercise {
 
     @Override
     public String toString() {
-        return name;
+        return String.format("%s", name);
     }
 }

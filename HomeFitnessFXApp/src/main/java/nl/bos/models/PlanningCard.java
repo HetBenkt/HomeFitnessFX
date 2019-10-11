@@ -3,6 +3,7 @@ package nl.bos.models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlanningCard {
     private long id;
@@ -54,5 +55,11 @@ public class PlanningCard {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Exercise getExercise(long id) {
+        return exercises.stream()
+                .filter(exercise -> exercise.getId() == id)
+                .collect(Collectors.toList()).get(0);
     }
 }

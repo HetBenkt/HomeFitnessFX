@@ -39,7 +39,7 @@ public class ExercisesPresenter {
     @FXML
     private void initialize() {
         Controllers.put(this.getClass().getSimpleName(), this);
-        lvExercises.setCellFactory(param -> new ExerciseCell());
+        lvExercises.setCellFactory(param -> new ExerciseCell(this.getClass().getSimpleName()));
         lvExercises.getItems().addAll(exerciseService.getAllExercises());
 
         exercises.setShowTransitionFactory(BounceInRightTransition::new);

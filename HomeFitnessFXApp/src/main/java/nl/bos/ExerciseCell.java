@@ -1,13 +1,15 @@
 package nl.bos;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import nl.bos.controllers.MainPresenter;
 import nl.bos.controllers.exercises.ExercisesPresenter;
 import nl.bos.models.Exercise;
 
@@ -20,7 +22,7 @@ public class ExerciseCell extends ListCell<Exercise> {
     private HBox exerciseContent;
     private Exercise exercise;
 
-    public ExerciseCell() {
+    public ExerciseCell(String presenterName) {
         super();
         name = new Text();
         description = new Text();
@@ -39,8 +41,17 @@ public class ExerciseCell extends ListCell<Exercise> {
             if (exercise != null) {
                 Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
                 this.listViewProperty().get().getSelectionModel().select(exercise);
-                ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
-                exercisesPresenter.edit(exercise.getId());
+                if (presenterName.equals("ExercisesPresenter")) {
+                    ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
+                    if (exercisesPresenter != null) {
+                        exercisesPresenter.edit(exercise.getId());
+                    }
+                } else {
+                    MainPresenter mainPresenter = (MainPresenter) Controllers.get("MainPresenter");
+                    if (mainPresenter != null) {
+                        mainPresenter.selectToggle(exercise.getId());
+                    }
+                }
             }
         });
     }
@@ -61,6 +72,13 @@ public class ExerciseCell extends ListCell<Exercise> {
             icon.setImage(exercise.getIcon());
             icon.setFitHeight(icon.getImage().getHeight()/3);
             icon.setFitWidth(icon.getImage().getWidth()/3);
+
+            if (exercise.isSelected()) {
+                exerciseContent.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            } else {
+                exerciseContent.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+
 
             setGraphic(exerciseContent);
         }

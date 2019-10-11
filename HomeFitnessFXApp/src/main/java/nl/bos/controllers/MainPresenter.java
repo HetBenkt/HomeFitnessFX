@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
+import nl.bos.models.Exercise;
 import nl.bos.services.MainService;
 import nl.bos.services.PlanningCardService;
 
@@ -33,7 +34,7 @@ public class MainPresenter {
     @FXML
     private void initialize() {
         Controllers.put(this.getClass().getSimpleName(), this);
-        lvExercises.setCellFactory(param -> new ExerciseCell());
+        lvExercises.setCellFactory(param -> new ExerciseCell(this.getClass().getSimpleName()));
         lvExercises.getItems().addAll(planningCardService.getPlanningCardToday().getExercises());
 
         txaStatus.appendText(mainService.checkDriver());
@@ -56,5 +57,16 @@ public class MainPresenter {
     public void updateExercises() {
         lvExercises.getItems().clear();
         lvExercises.getItems().setAll(planningCardService.getPlanningCardToday().getExercises());
+    }
+
+    public void selectToggle(long id) {
+        Exercise exercise = planningCardService.getPlanningCardToday().getExercise(id);
+
+        if (exercise.isSelected())
+            exercise.setSelected(false);
+        else
+            exercise.setSelected(true);
+
+        updateExercises();
     }
 }
