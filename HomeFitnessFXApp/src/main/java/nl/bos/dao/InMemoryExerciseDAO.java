@@ -65,6 +65,13 @@ public class InMemoryExerciseDAO extends InMemoryDAO implements ExerciseDAO {
     }
 
     @Override
+    public List<Exercise> getAllUnusedExercises() {
+        return exercises.stream()
+                .filter(exercise -> !exercise.isUsedByPlanningCards())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public long getNextId() {
         return ++currentId;
     }

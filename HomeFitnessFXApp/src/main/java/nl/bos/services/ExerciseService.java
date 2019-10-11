@@ -18,6 +18,10 @@ public class ExerciseService {
         return exerciseDAO.getAllExercises();
     }
 
+    public List<Exercise> getAllUnusedExercises() {
+        return exerciseDAO.getAllUnusedExercises();
+    }
+
     public Exercise createExercise(String name, String description, Image icon) {
         return exerciseDAO.createExercise(name, description, icon);
     }

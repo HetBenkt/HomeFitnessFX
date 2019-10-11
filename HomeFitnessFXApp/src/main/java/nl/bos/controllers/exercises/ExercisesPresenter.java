@@ -40,7 +40,7 @@ public class ExercisesPresenter {
     private void initialize() {
         Controllers.put(this.getClass().getSimpleName(), this);
         lvExercises.setCellFactory(param -> new ExerciseCell(this.getClass().getSimpleName()));
-        lvExercises.getItems().addAll(exerciseService.getAllExercises());
+        lvExercises.getItems().addAll(exerciseService.getAllUnusedExercises());
 
         exercises.setShowTransitionFactory(BounceInRightTransition::new);
 
@@ -69,6 +69,6 @@ public class ExercisesPresenter {
 
     public void updateExercises() {
         lvExercises.getItems().clear();
-        lvExercises.getItems().setAll(exerciseService.getAllExercises());
+        lvExercises.getItems().setAll(exerciseService.getAllUnusedExercises());
     }
 }

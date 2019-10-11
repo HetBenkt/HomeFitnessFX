@@ -2,6 +2,9 @@ package nl.bos.models;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Exercise {
     private long id;
     private String name;
@@ -11,6 +14,15 @@ public class Exercise {
     private int sets;
     private String unit;
     private boolean isSelected;
+    private List<PlanningCard> usedByPlanningCards = new ArrayList<>();
+
+    public void addToUsedByPlanningCards(PlanningCard planningCard) {
+        usedByPlanningCards.add(planningCard);
+    }
+
+    public boolean isUsedByPlanningCards() {
+        return usedByPlanningCards.size() > 0;
+    }
 
     public boolean isSelected() {
         return isSelected;

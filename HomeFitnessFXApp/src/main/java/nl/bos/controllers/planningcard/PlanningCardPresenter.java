@@ -99,7 +99,7 @@ public class PlanningCardPresenter {
         ListView<Exercise> exercises = new ListView<>();
         exercises.setCellFactory(param -> new ExerciseSelectionCell(true));
         exercises.getItems().clear();
-        exercises.getItems().addAll(new ExerciseService().getAllExercises());
+        exercises.getItems().addAll(new ExerciseService().getAllUnusedExercises());
         dialog.setContent(exercises);
         Button okButton = new Button("Add");
         okButton.setOnAction(e -> {

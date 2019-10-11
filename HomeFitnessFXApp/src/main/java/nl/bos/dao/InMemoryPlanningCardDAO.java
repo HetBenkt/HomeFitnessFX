@@ -22,7 +22,8 @@ public class InMemoryPlanningCardDAO extends InMemoryDAO implements PlanningCard
         Exercise exercise = exerciseDAO.createExercise("Plank", "Lie straight with both forearms \nsupporting body; hold position", new Image(DrawerManager.class.getResourceAsStream("/exercise1.png")));
         List<Exercise> exercises = new ArrayList<>();
         exercises.add(exercise);
-        createPlanningCard("First day", "", LocalDate.now(), exercises);
+        PlanningCard firstDay = createPlanningCard("First day", "", LocalDate.now(), exercises);
+        exercise.addToUsedByPlanningCards(firstDay);
     }
 
     public static PlanningCardDAO getInstance() {
