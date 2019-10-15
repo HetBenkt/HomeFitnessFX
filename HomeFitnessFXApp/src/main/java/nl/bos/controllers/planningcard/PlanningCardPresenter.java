@@ -5,6 +5,7 @@ import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.*;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +23,7 @@ import nl.bos.services.PlanningCardService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +41,7 @@ public class PlanningCardPresenter {
     @FXML
     private DatePicker dpDate;
     private PlanningCardService planningCardService;
+    private ExerciseService exerciseService = new ExerciseService();
     private long currentPlanningCardId = -1;
 
     public PlanningCardPresenter() {
@@ -94,20 +97,30 @@ public class PlanningCardPresenter {
 
     @FXML
     private void addExercise(ActionEvent actionEvent) {
+
         Dialog dialog = new Dialog();
-        dialog.setTitle(new Label("Select your exercises"));
-        ListView<Exercise> exercises = new ListView<>();
-        exercises.setCellFactory(param -> new ExerciseSelectionCell(true));
-        exercises.getItems().clear();
-        exercises.getItems().addAll(new ExerciseService().getAllUnusedExercises());
-        dialog.setContent(exercises);
+        dialog.setTitle(new Label("Select your exercisesList"));
+        ListView<Exercise> exercisesList = new ListView<>();
+        exercisesList.setCellFactory(param -> new ExerciseSelectionCell(true));
+        exercisesList.getItems().clear();
+        exercisesList.getItems().addAll(exerciseService.getAllUnusedExercises());
+        dialog.setContent(exercisesList);
         Button okButton = new Button("Add");
-        okButton.setOnAction(e -> {
-            lvExercises.getItems().addAll(exercises.getSelectionModel().getSelectedItems());
-            dialog.hide();
-        });
+        okButton.setOnAction(e -> this.handleOnAction(exercisesList, dialog));
         dialog.getButtons().add(okButton);
         dialog.showAndWait();
+    }
+
+    private void handleOnAction(ListView<Exercise> exercisesList, Dialog dialog) {
+        ObservableList<Exercise> selectedExercises = exercisesList.getSelectionModel().getSelectedItems();
+        List<Exercise> exercises = new ArrayList<>();
+        for (Exercise selectedExercise : selectedExercises) {
+            Exercise exercise = exerciseService.createExercise(selectedExercise.getName(), selectedExercise.getDescription(), selectedExercise.getIcon());
+            exercise.addToUsedByPlanningCards(planningCardService.getPlanningCard(currentPlanningCardId));
+            exercises.add(exercise);
+        }
+        lvExercises.getItems().addAll(exercises);
+        dialog.hide();
     }
 
     public void updateFields(PlanningCard planningCard) {
