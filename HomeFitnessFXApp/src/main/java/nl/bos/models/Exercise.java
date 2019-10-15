@@ -16,6 +16,10 @@ public class Exercise {
     private boolean isSelected;
     private List<PlanningCard> usedByPlanningCards = new ArrayList<>();
 
+    public List<PlanningCard> getUsedByPlanningCards() {
+        return usedByPlanningCards;
+    }
+
     public void addToUsedByPlanningCards(PlanningCard planningCard) {
         usedByPlanningCards.add(planningCard);
     }

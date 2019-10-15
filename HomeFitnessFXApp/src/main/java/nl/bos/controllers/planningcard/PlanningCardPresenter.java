@@ -88,7 +88,7 @@ public class PlanningCardPresenter {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
                         MobileApplication.getInstance().getDrawer().open()));
-                appBar.setTitleText("New Planning Card");
+                appBar.setTitleText("Planning Card");
                 appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e ->
                         Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, e)));
             }
@@ -97,7 +97,6 @@ public class PlanningCardPresenter {
 
     @FXML
     private void addExercise(ActionEvent actionEvent) {
-
         Dialog dialog = new Dialog();
         dialog.setTitle(new Label("Select your exercisesList"));
         ListView<Exercise> exercisesList = new ListView<>();
@@ -128,7 +127,7 @@ public class PlanningCardPresenter {
         tfName.setText(planningCard.getName());
         taDescription.setText(planningCard.getDescription());
         dpDate.setValue(planningCard.getDate());
-        lvExercises.getItems().addAll(planningCard.getExercises());
+        lvExercises.getItems().setAll(planningCard.getExercises());
     }
 
     public void remove(Exercise exercise) {

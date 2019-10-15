@@ -27,6 +27,10 @@ public class ExercisePresenter {
     private ExerciseService exerciseService;
 
     @FXML
+    private TextField tfId;
+    @FXML
+    private TextField tfPlanningcard;
+    @FXML
     private TextField tfName;
     @FXML
     private TextArea taDescription;
@@ -58,6 +62,8 @@ public class ExercisePresenter {
     }
 
     private void cleanFormFields() {
+        tfPlanningcard.setText("");
+        tfId.setText("");
         tfName.setText("");
         taDescription.setText("");
     }
@@ -85,6 +91,8 @@ public class ExercisePresenter {
 
     public void updateFields(Exercise exercise) {
         this.currentExerciseId = exercise.getId();
+        tfPlanningcard.setText(String.valueOf(exercise.getUsedByPlanningCards()));
+        tfId.setText(String.valueOf(exercise.getId()));
         tfName.setText(exercise.getName());
         taDescription.setText(exercise.getDescription());
     }

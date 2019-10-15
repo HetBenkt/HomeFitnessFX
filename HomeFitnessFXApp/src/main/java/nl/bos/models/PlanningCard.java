@@ -62,4 +62,9 @@ public class PlanningCard {
                 .filter(exercise -> exercise.getId() == id)
                 .collect(Collectors.toList()).get(0);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s", name);
+    }
 }

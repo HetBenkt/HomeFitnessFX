@@ -55,7 +55,7 @@ public class PlanningCardsPresenter {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
                         MobileApplication.getInstance().getDrawer().open()));
-                appBar.setTitleText("Administration");
+                appBar.setTitleText("Planning Cards");
                 appBar.getActionItems().add(MaterialDesignIcon.FAVORITE.button(e ->
                         Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Favorite", e)));
             }

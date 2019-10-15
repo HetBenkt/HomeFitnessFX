@@ -28,10 +28,18 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
                     Logger.getLogger(ExerciseSelectionCell.class.getName()).info("Remove from list " + exercise.getName());
                     PlanningCardPresenter planningCardPresenter = (PlanningCardPresenter) Controllers.get("PlanningCardPresenter");
                     planningCardPresenter.remove(exercise);
-                } else {
+                } else if (isDialog) {
                     Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
                     this.listViewProperty().get().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
                     this.listViewProperty().get().getSelectionModel().select(exercise);
+                } else {
+                    this.listViewProperty().get().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                    this.listViewProperty().get().getSelectionModel().select(exercise);
+
+                    //TODO Logger.getLogger(ExerciseSelectionCell.class.getName()).log(Level.INFO, "Add Reps/Sets/Units");
+//                    MobileApplication.getInstance().switchView(EDIT_EXERCISE);
+//                    ExercisePresenter exercisePresenter = (ExercisePresenter) Controllers.get("ExercisePresenter");
+//                    exercisePresenter.updateFields(exercise);
                 }
             }
         });
