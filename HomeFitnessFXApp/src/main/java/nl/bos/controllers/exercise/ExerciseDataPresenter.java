@@ -10,18 +10,15 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import nl.bos.Controllers;
-import nl.bos.DrawerManager;
 import nl.bos.controllers.MainView;
-import nl.bos.controllers.exercises.ExercisesPresenter;
 import nl.bos.models.Exercise;
 import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static nl.bos.IConstants.VIEW_EXERCISES;
+import static nl.bos.IConstants.VIEW_PLANNING_CARDS;
 
 public class ExerciseDataPresenter {
     private ExerciseService exerciseService;
@@ -32,6 +29,12 @@ public class ExerciseDataPresenter {
     private TextField tfPlanningcard;
     @FXML
     private TextField tfName;
+    @FXML
+    private TextField tfSets;
+    @FXML
+    private TextField tfUnit; //TODO should be a dropdown!
+    @FXML
+    private TextField tfReps;
     @FXML
     private TextArea taDescription;
 
@@ -45,20 +48,16 @@ public class ExerciseDataPresenter {
     }
 
     private void save(ActionEvent actionEvent) {
-        Logger.getLogger(ExerciseDataPresenter.class.getName()).log(Level.INFO, "Save Exercise", actionEvent);
+        Logger.getLogger(ExerciseDataPresenter.class.getName()).log(Level.INFO, "Save Exercise Data", actionEvent);
 
-        if (currentExerciseId == -1) {
-            exerciseService.createExercise(tfName.getText(), taDescription.getText(), new Image(DrawerManager.class.getResourceAsStream("/icon.png")));
-            cleanFormFields();
-        } else {
-            exerciseService.updateExercise(currentExerciseId, tfName.getText(), taDescription.getText());
-            cleanFormFields();
-            currentExerciseId = -1;
-        }
+        exerciseService.updateExercise(currentExerciseId, tfName.getText(), taDescription.getText());
+        exerciseService.addExerciseData(currentExerciseId, Integer.parseInt(tfReps.getText()), Integer.parseInt(tfSets.getText()), tfUnit.getText());
+        cleanFormFields();
+        currentExerciseId = -1;
 
-        ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get(ExercisesPresenter.class.getSimpleName());
-        exercisesPresenter.updateExercises();
-        MobileApplication.getInstance().switchView(VIEW_EXERCISES);
+        //PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get(PlanningCardsPresenter.class.getSimpleName());
+        //planningCardsPresenter.updateExercises();
+        MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
     }
 
     private void cleanFormFields() {
@@ -66,6 +65,9 @@ public class ExerciseDataPresenter {
         tfId.setText("");
         tfName.setText("");
         taDescription.setText("");
+        tfReps.setText("");
+        tfSets.setText("");
+        tfUnit.setText("");
     }
 
     @FXML
@@ -95,5 +97,8 @@ public class ExerciseDataPresenter {
         tfId.setText(String.valueOf(exercise.getId()));
         tfName.setText(exercise.getName());
         taDescription.setText(exercise.getDescription());
+        tfReps.setText(String.valueOf(exercise.getReps()));
+        tfSets.setText(String.valueOf(exercise.getSets()));
+        tfUnit.setText(exercise.getUnit());
     }
 }

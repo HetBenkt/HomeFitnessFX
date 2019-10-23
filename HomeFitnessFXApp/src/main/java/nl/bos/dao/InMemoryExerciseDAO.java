@@ -72,6 +72,14 @@ public class InMemoryExerciseDAO extends InMemoryDAO implements ExerciseDAO {
     }
 
     @Override
+    public void addExerciseData(long id, int reps, int sets, String unit) {
+        Exercise exercise = getExercise(id);
+        exercise.setReps(reps);
+        exercise.setSets(sets);
+        exercise.setUnit(unit);
+    }
+
+    @Override
     public long getNextId() {
         return ++currentId;
     }

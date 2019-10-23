@@ -18,4 +18,6 @@ public interface ExerciseDAO extends GenericDAO {
     Exercise updateExercise(long id, String name, String description);
 
     List<Exercise> getAllUnusedExercises();
+
+    void addExerciseData(long id, int reps, int sets, String unit);
 }

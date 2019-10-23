@@ -38,7 +38,7 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
             btnEdit.setMaxSize(16, 16);
             btnEdit.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/edit.png"))));
             btnEdit.setOnAction(event -> editExerciseForPlanningCard());
-            exerciseContent = new HBox(btnRemove, btnEdit, name);
+            exerciseContent = new HBox(btnRemove, btnEdit, name); //TODO not only the name, but also the reps/sets/unit
         }
         exerciseContent.setSpacing(10);
 

@@ -33,4 +33,8 @@ public class ExerciseService {
     public Exercise updateExercise(long id, String name, String description) {
         return exerciseDAO.updateExercise(id, name, description);
     }
+
+    public void addExerciseData(long id, int reps, int sets, String unit) {
+        exerciseDAO.addExerciseData(id, reps, sets, unit);
+    }
 }
