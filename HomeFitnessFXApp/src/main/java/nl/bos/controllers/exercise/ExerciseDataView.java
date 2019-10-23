@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ExerciseView {
+public class ExerciseDataView {
     public View getView() {
         try {
-            return FXMLLoader.load(ExerciseView.class.getResource("/nl/bos/views/exercise.fxml"));
+            return FXMLLoader.load(ExerciseDataView.class.getResource("/nl/bos/views/exercise_data.fxml"));
         } catch (IOException e) {
-            Logger.getLogger(ExerciseView.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ExerciseDataView.class.getName()).log(Level.SEVERE, null, e);
             return new View();
         }
     }

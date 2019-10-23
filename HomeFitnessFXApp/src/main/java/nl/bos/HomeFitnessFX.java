@@ -8,6 +8,7 @@ import com.gluonhq.charm.glisten.visual.Swatch;
 import javafx.scene.Scene;
 import nl.bos.controllers.MainPresenter;
 import nl.bos.controllers.MainView;
+import nl.bos.controllers.exercise.ExerciseDataView;
 import nl.bos.controllers.exercise.ExerciseView;
 import nl.bos.controllers.exercises.ExercisesView;
 import nl.bos.controllers.planningcard.PlanningCardView;
@@ -43,6 +44,10 @@ public class HomeFitnessFX extends MobileApplication {
         return new ExerciseView().getView();
     }
 
+    private static View getExerciseData() {
+        return new ExerciseDataView().getView();
+    }
+
     @Override
     public void init() {
         addViewFactory(HOME_VIEW, HomeFitnessFX::getMain);
@@ -52,6 +57,7 @@ public class HomeFitnessFX extends MobileApplication {
 
         addViewFactory(VIEW_EXERCISES, HomeFitnessFX::getExercises);
         addViewFactory(EDIT_EXERCISE, HomeFitnessFX::getExercise);
+        addViewFactory(ADD_EXERCISE_DATA, HomeFitnessFX::getExerciseData);
 
         DrawerManager.buildDrawer(this);
     }
