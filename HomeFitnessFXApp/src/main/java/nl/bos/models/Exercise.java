@@ -12,7 +12,7 @@ public class Exercise {
     private Image icon;
     private int reps;
     private int sets;
-    private String unit;
+    private String unit = "unit";
     private boolean isSelected;
     private List<PlanningCard> usedByPlanningCards = new ArrayList<>();
 

@@ -17,21 +17,21 @@ import java.util.logging.Logger;
 
 public class ExerciseCell extends ListCell<Exercise> {
     private Text description;
-    private Text name;
+    private Text exerciseData;
     private ImageView icon;
     private HBox exerciseContent;
     private Exercise exercise;
 
     public ExerciseCell(String presenterName) {
         super();
-        name = new Text();
+        exerciseData = new Text();
         description = new Text();
         icon = new ImageView();
 
         VBox iconBox = new VBox(icon);
         iconBox.setAlignment(Pos.CENTER);
 
-        VBox textBox = new VBox(name, description);
+        VBox textBox = new VBox(exerciseData, description);
         textBox.setAlignment(Pos.CENTER_LEFT);
 
         exerciseContent = new HBox(iconBox, textBox);
@@ -63,8 +63,8 @@ public class ExerciseCell extends ListCell<Exercise> {
             setGraphic(null);
         } else {
             this.exercise = exercise;
-            name.setFont(Font.font ("Verdana", 14));
-            name.setText(exercise.getName());
+            exerciseData.setFont(Font.font("Verdana", 14));
+            exerciseData.setText(String.format("%s [%s x %s %s]", exercise.getName(), exercise.getReps(), exercise.getSets(), exercise.getUnit()));
 
             description.setFont(Font.font ("Verdana", FontPosture.ITALIC, 10));
             description.setText(exercise.getDescription());

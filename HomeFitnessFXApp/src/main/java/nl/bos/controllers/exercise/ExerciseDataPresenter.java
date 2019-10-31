@@ -10,6 +10,7 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import nl.bos.Controllers;
 import nl.bos.controllers.MainView;
 import nl.bos.models.Exercise;
@@ -32,7 +33,7 @@ public class ExerciseDataPresenter {
     @FXML
     private TextField tfSets;
     @FXML
-    private TextField tfUnit; //TODO should be a dropdown!
+    private ComboBox<String> cbUnit;
     @FXML
     private TextField tfReps;
     @FXML
@@ -51,12 +52,10 @@ public class ExerciseDataPresenter {
         Logger.getLogger(ExerciseDataPresenter.class.getName()).log(Level.INFO, "Save Exercise Data", actionEvent);
 
         exerciseService.updateExercise(currentExerciseId, tfName.getText(), taDescription.getText());
-        exerciseService.addExerciseData(currentExerciseId, Integer.parseInt(tfReps.getText()), Integer.parseInt(tfSets.getText()), tfUnit.getText());
+        exerciseService.addExerciseData(currentExerciseId, Integer.parseInt(tfReps.getText()), Integer.parseInt(tfSets.getText()), cbUnit.getSelectionModel().getSelectedItem());
         cleanFormFields();
         currentExerciseId = -1;
 
-        //PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get(PlanningCardsPresenter.class.getSimpleName());
-        //planningCardsPresenter.updateExercises();
         MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
     }
 
@@ -67,7 +66,7 @@ public class ExerciseDataPresenter {
         taDescription.setText("");
         tfReps.setText("");
         tfSets.setText("");
-        tfUnit.setText("");
+        cbUnit.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -99,6 +98,6 @@ public class ExerciseDataPresenter {
         taDescription.setText(exercise.getDescription());
         tfReps.setText(String.valueOf(exercise.getReps()));
         tfSets.setText(String.valueOf(exercise.getSets()));
-        tfUnit.setText(exercise.getUnit());
+        cbUnit.getSelectionModel().select(exercise.getUnit());
     }
 }

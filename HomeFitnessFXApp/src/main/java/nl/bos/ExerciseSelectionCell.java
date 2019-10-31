@@ -19,16 +19,16 @@ import java.util.logging.Logger;
 import static nl.bos.IConstants.ADD_EXERCISE_DATA;
 
 public class ExerciseSelectionCell extends ListCell<Exercise> {
-    private Text name;
+    private Text exerciseData;
     private Exercise exercise;
     private HBox exerciseContent;
 
     public ExerciseSelectionCell(boolean isDialog) {
         super();
-        name = new Text();
+        exerciseData = new Text();
 
         if (isDialog)
-            exerciseContent = new HBox(name);
+            exerciseContent = new HBox(exerciseData);
         else {
             Button btnRemove = new Button();
             btnRemove.setMaxSize(16, 16);
@@ -38,7 +38,7 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
             btnEdit.setMaxSize(16, 16);
             btnEdit.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/edit.png"))));
             btnEdit.setOnAction(event -> editExerciseForPlanningCard());
-            exerciseContent = new HBox(btnRemove, btnEdit, name); //TODO not only the name, but also the reps/sets/unit
+            exerciseContent = new HBox(btnRemove, btnEdit, exerciseData);
         }
         exerciseContent.setSpacing(10);
 
@@ -76,8 +76,8 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
             setGraphic(null);
         } else {
             this.exercise = exercise;
-            name.setFont(Font.font("Verdana", 14));
-            name.setText(exercise.getName());
+            exerciseData.setFont(Font.font("Verdana", 14));
+            exerciseData.setText(String.format("%s [%s x %s %s]", exercise.getName(), exercise.getReps(), exercise.getSets(), exercise.getUnit()));
 
             setGraphic(exerciseContent);
         }
