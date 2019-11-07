@@ -83,7 +83,13 @@ public class MainPresenter {
 
     public void updateExercises() {
         lvExercises.getItems().clear();
-        lvExercises.getItems().setAll(planningCardService.getPlanningCardToday().getExercises());
+        PlanningCard planningCardToday = planningCardService.getPlanningCardToday();
+
+        lvExercises.getItems().setAll(planningCardToday.getExercises());
+        lblDate.setText(planningCardToday.getDate().format(DateTimeFormatter.ISO_DATE));
+        lblDay.setText(planningCardToday.getName());
+        lblSlogan.setText(planningCardToday.getDescription());
+        lblDone.setText(String.format("0 / %s DONE", planningCardToday.getExercises().size()));
     }
 
     public void selectToggle(long id) {
