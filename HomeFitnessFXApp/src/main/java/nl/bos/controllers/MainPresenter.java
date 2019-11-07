@@ -1,18 +1,25 @@
 package nl.bos.controllers;
 
+import com.gluonhq.charm.down.Services;
+import com.gluonhq.charm.down.plugins.LifecycleService;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
 import nl.bos.models.Exercise;
+import nl.bos.models.PlanningCard;
 import nl.bos.services.MainService;
 import nl.bos.services.PlanningCardService;
 
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +32,20 @@ public class MainPresenter {
     private ListView lvExercises;
     @FXML
     private TextArea txaStatus;
+    @FXML
+    private Button btnStartTimer;
+    @FXML
+    private Button btnStopTimer;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private Label lblDay;
+    @FXML
+    private Label lblSlogan;
+    @FXML
+    private Label lblDone;
+    @FXML
+    private Label lblTimer;
 
     public MainPresenter() {
         mainService = new MainService();
@@ -35,7 +56,13 @@ public class MainPresenter {
     private void initialize() {
         Controllers.put(this.getClass().getSimpleName(), this);
         lvExercises.setCellFactory(param -> new ExerciseCell(this.getClass().getSimpleName()));
-        lvExercises.getItems().addAll(planningCardService.getPlanningCardToday().getExercises());
+        PlanningCard planningCardToday = planningCardService.getPlanningCardToday();
+
+        lvExercises.getItems().addAll(planningCardToday.getExercises());
+        lblDate.setText(planningCardToday.getDate().format(DateTimeFormatter.ISO_DATE));
+        lblDay.setText(planningCardToday.getName());
+        lblSlogan.setText(planningCardToday.getDescription());
+        lblDone.setText(String.format("0 / %s DONE", planningCardToday.getExercises().size()));
 
         txaStatus.appendText(mainService.checkDriver());
         txaStatus.appendText(System.lineSeparator());
@@ -68,5 +95,20 @@ public class MainPresenter {
             exercise.setSelected(true);
 
         updateExercises();
+    }
+
+    public void startTimer(ActionEvent actionEvent) {
+        btnStartTimer.setVisible(false);
+        btnStopTimer.setVisible(true);
+        lblTimer.setText("45:00");
+    }
+
+    public void stopTimer(ActionEvent actionEvent) {
+        btnStartTimer.setVisible(true);
+        btnStopTimer.setVisible(false);
+    }
+
+    public void quit(ActionEvent actionEvent) {
+        Services.get(LifecycleService.class).ifPresent(LifecycleService::shutdown);
     }
 }

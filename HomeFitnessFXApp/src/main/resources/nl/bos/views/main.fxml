@@ -1,15 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.gluonhq.charm.glisten.mvc.View?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <View xmlns:fx="http://javafx.com/fxml/1" fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="845.0" prefWidth="325.0" stylesheets="@../main.css"
-      xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.MainPresenter">
-    <VBox BorderPane.alignment="CENTER">
-        <ListView fx:id="lvExercises" prefHeight="700.0"/>
-        <TextArea fx:id="txaStatus" editable="false" prefHeight="200.0" prefWidth="200.0"/>
-    </VBox>
+      xmlns="http://javafx.com/javafx/11.0.1" fx:controller="nl.bos.controllers.MainPresenter">
+   <SplitPane dividerPositions="0.65" orientation="VERTICAL" BorderPane.alignment="CENTER">
+      <items>
+         <TabPane>
+            <tabs>
+               <Tab closable="false" text="Today">
+                  <content>
+                     <ScrollPane>
+                        <content>
+                           <ListView fx:id="lvExercises" prefHeight="500.0" prefWidth="310.0"/>
+                        </content>
+                        <padding>
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                     </ScrollPane>
+                  </content>
+               </Tab>
+               <Tab closable="false" text="Logging">
+                  <content>
+                     <ScrollPane>
+                        <content>
+                           <TextArea fx:id="txaStatus" editable="false" prefHeight="500.0" prefWidth="310.0"/>
+                        </content>
+                        <padding>
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                     </ScrollPane>
+                  </content>
+               </Tab>
+            </tabs>
+         </TabPane>
+         <BorderPane>
+            <left>
+               <Pane BorderPane.alignment="TOP_LEFT">
+                  <children>
+                     <Button fx:id="btnStartTimer" defaultButton="true" mnemonicParsing="false" onAction="#startTimer"
+                             text="Start timer"/>
+                     <Button fx:id="btnStopTimer" cancelButton="true" mnemonicParsing="false" onAction="#stopTimer"
+                             text="Stop timer" visible="false"/>
+                  </children>
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+               </Pane>
+            </left>
+            <right>
+               <Pane BorderPane.alignment="TOP_RIGHT">
+                  <children>
+                     <Button fx:id="btnQuit" cancelButton="true" mnemonicParsing="false" onAction="#quit" text="Quit"/>
+                  </children>
+               </Pane>
+            </right>
+            <top>
+               <VBox spacing="5.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <HBox>
+                        <children>
+                           <Label fx:id="lblDate" text="08 nov. 2019">
+                              <font>
+                                 <Font name="System Bold" size="16.0"/>
+                              </font>
+                           </Label>
+                           <Label fx:id="lblDay" text="Day 3">
+                              <padding>
+                                 <Insets left="40.0"/>
+                              </padding>
+                              <font>
+                                 <Font name="System Bold" size="16.0"/>
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <Label fx:id="lblSlogan" text="Finish the sequence a a pro!">
+                        <font>
+                           <Font size="16.0"/>
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+               </VBox>
+            </top>
+            <center>
+               <VBox spacing="5.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <Label fx:id="lblDone" text="0 / 16 DONE">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                     <Label fx:id="lblTimer" text="45:10">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+               </VBox>
+            </center>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+         </BorderPane>
+      </items>
+   </SplitPane>
 </View>

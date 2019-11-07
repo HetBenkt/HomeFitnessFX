@@ -33,7 +33,7 @@ public class ExerciseDataPresenter {
     @FXML
     private TextField tfSets;
     @FXML
-    private ComboBox<String> cbUnit;
+    private ComboBox<String> cbUnit; //TODO make it a radiobutton selection (on mobile its almost unselectable!
     @FXML
     private TextField tfReps;
     @FXML
