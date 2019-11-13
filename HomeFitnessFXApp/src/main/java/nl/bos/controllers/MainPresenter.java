@@ -6,7 +6,6 @@ import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,18 +13,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import nl.bos.Controllers;
 import nl.bos.ExerciseCell;
+import nl.bos.TimerTask;
 import nl.bos.models.Exercise;
 import nl.bos.models.PlanningCard;
 import nl.bos.services.MainService;
 import nl.bos.services.PlanningCardService;
 
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainPresenter {
     private final PlanningCardService planningCardService;
     private final MainService mainService;
+    private final TimerTask timerTask;
+
     @FXML
     private View main;
     @FXML
@@ -35,7 +39,7 @@ public class MainPresenter {
     @FXML
     private Button btnStartTimer;
     @FXML
-    private Button btnStopTimer;
+    private Button btnHaltTimer;
     @FXML
     private Label lblDate;
     @FXML
@@ -48,8 +52,9 @@ public class MainPresenter {
     private Label lblTimer;
 
     public MainPresenter() {
-        mainService = new MainService();
+        this.mainService = new MainService();
         this.planningCardService = new PlanningCardService();
+        this.timerTask = new TimerTask();
     }
 
     @FXML
@@ -68,6 +73,12 @@ public class MainPresenter {
         txaStatus.appendText(System.lineSeparator());
         txaStatus.appendText(mainService.createDatabase());
         txaStatus.appendText(System.lineSeparator());
+
+        lblTimer.textProperty().bind(timerTask.messageProperty());
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(timerTask);
+        executorService.shutdown();
 
         main.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
@@ -103,18 +114,19 @@ public class MainPresenter {
         updateExercises();
     }
 
-    public void startTimer(ActionEvent actionEvent) {
+    public void startTimer() {
         btnStartTimer.setVisible(false);
-        btnStopTimer.setVisible(true);
-        lblTimer.setText("45:00");
+        btnHaltTimer.setVisible(true);
+        timerTask.toggleTimer(true);
     }
 
-    public void stopTimer(ActionEvent actionEvent) {
+    public void haltTimer() {
         btnStartTimer.setVisible(true);
-        btnStopTimer.setVisible(false);
+        btnHaltTimer.setVisible(false);
+        timerTask.toggleTimer(false);
     }
 
-    public void quit(ActionEvent actionEvent) {
+    public void quit() {
         Services.get(LifecycleService.class).ifPresent(LifecycleService::shutdown);
     }
 }

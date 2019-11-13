@@ -44,7 +44,7 @@
                   <children>
                      <Button fx:id="btnStartTimer" defaultButton="true" mnemonicParsing="false" onAction="#startTimer"
                              text="Start timer"/>
-                     <Button fx:id="btnStopTimer" cancelButton="true" mnemonicParsing="false" onAction="#stopTimer"
+                     <Button fx:id="btnHaltTimer" cancelButton="true" mnemonicParsing="false" onAction="#haltTimer"
                              text="Stop timer" visible="false"/>
                   </children>
                   <padding>
