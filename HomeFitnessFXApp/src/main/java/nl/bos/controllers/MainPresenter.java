@@ -76,7 +76,7 @@ public class MainPresenter {
 
         lblTimer.textProperty().bind(timerTask.messageProperty());
 
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(timerTask);
         executorService.shutdown();
 

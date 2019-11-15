@@ -1,13 +1,13 @@
 package nl.bos;
 
-public class IConstants {
-    public static final String EDIT_PLANNING_CARD = "PlanningCard";
-    public static final String EDIT_EXERCISE = "Exercise";
-    public static final String ADD_EXERCISE_DATA = "Exercise data";
-    public static final String VIEW_PLANNING_CARDS = "PlanningCards";
-    public static final String VIEW_EXERCISES = "Exercises";
+public interface IConstants { //TODO make it an ENUM where EDIT_PLANNING_CARD.name() return also a String!
+    String EDIT_PLANNING_CARD = "PlanningCard";
+    String EDIT_EXERCISE = "Exercise";
+    String ADD_EXERCISE_DATA = "Exercise data";
+    String VIEW_PLANNING_CARDS = "PlanningCards";
+    String VIEW_EXERCISES = "Exercises";
 
-    private IConstants() {
-    }
+//    private IConstants() {
+//    }
 
 }

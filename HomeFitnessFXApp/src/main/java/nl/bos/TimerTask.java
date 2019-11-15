@@ -2,14 +2,15 @@ package nl.bos;
 
 import javafx.concurrent.Task;
 
-public class TimerTask extends Task {
+public class TimerTask extends Task {//TODO There are StopWatch classes that can do the same trick, maybe even nicer!
     private boolean running = false;
     private int countDownTimer = (45 * 60) + 10;
     private boolean runTask = true;
 
     @Override
-    protected Object call() throws Exception {
-        while (runTask) {
+    protected Object call() {
+        while (runTask && !Thread.currentThread().isInterrupted()) {
+
             if (running) {
                 if (countDownTimer >= 0) {
                     updateMessage(String.format("%02d:%02d", countDownTimer / 60, countDownTimer % 60));
@@ -19,7 +20,12 @@ public class TimerTask extends Task {
 
                 countDownTimer--;
             }
-            Thread.sleep(1000);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
         }
 
         return null;
