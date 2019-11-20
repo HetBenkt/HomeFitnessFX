@@ -111,6 +111,10 @@ public class PlanningCardPresenter {
     }
 
     private void handleOnAction(ListView<Exercise> exercisesList, Dialog dialog) {
+        if (currentPlanningCardId == -1) {
+            currentPlanningCardId = planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems())).getId();
+        }
+
         ObservableList<Exercise> selectedExercises = exercisesList.getSelectionModel().getSelectedItems();
         List<Exercise> exercises = new ArrayList<>();
         for (Exercise selectedExercise : selectedExercises) {
@@ -120,9 +124,6 @@ public class PlanningCardPresenter {
         }
         lvExercises.getItems().addAll(exercises);
 
-        if (currentPlanningCardId == -1) {
-            currentPlanningCardId = planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems())).getId();
-        }
         planningCardService.updateExercise(currentPlanningCardId, tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
         dialog.hide();
     }
