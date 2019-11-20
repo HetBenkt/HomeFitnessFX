@@ -75,10 +75,11 @@ public class ExerciseCell extends ListCell<Exercise> {
 
             if (exercise.isSelected()) {
                 exerciseContent.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                exercise.setDone(true);
             } else {
                 exerciseContent.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                exercise.setDone(false);
             }
-
 
             setGraphic(exerciseContent);
         }

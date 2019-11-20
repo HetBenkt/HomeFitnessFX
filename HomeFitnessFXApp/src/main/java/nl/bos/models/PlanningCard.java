@@ -63,6 +63,12 @@ public class PlanningCard {
                 .collect(Collectors.toList()).get(0);
     }
 
+    public List<Exercise> getDoneExercises() {
+        return exercises.stream()
+                .filter(Exercise::isDone)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return String.format("%s", name);

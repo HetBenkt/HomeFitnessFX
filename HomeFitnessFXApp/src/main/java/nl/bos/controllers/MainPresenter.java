@@ -100,7 +100,7 @@ public class MainPresenter {
         lblDate.setText(planningCardToday.getDate().format(DateTimeFormatter.ISO_DATE));
         lblDay.setText(planningCardToday.getName());
         lblSlogan.setText(planningCardToday.getDescription());
-        lblDone.setText(String.format("0 / %s DONE", planningCardToday.getExercises().size()));
+        lblDone.setText(String.format("%s / %s DONE", planningCardToday.getDoneExercises().size(), planningCardToday.getExercises().size()));
     }
 
     public void selectToggle(long id) {

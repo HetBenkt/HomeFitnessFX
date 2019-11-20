@@ -15,6 +15,7 @@ public class Exercise {
     private String unit = "unit";
     private boolean isSelected;
     private List<PlanningCard> usedByPlanningCards = new ArrayList<>();
+    private boolean isDone = false;
 
     public List<PlanningCard> getUsedByPlanningCards() {
         return usedByPlanningCards;
@@ -25,7 +26,7 @@ public class Exercise {
     }
 
     public boolean isUsedByPlanningCards() {
-        return usedByPlanningCards.size() > 0;
+        return !usedByPlanningCards.isEmpty();
     }
 
     public boolean isSelected() {
@@ -90,6 +91,14 @@ public class Exercise {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     @Override
