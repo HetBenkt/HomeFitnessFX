@@ -119,6 +119,10 @@ public class PlanningCardPresenter {
             exercises.add(exercise);
         }
         lvExercises.getItems().addAll(exercises);
+
+        if (currentPlanningCardId == -1) {
+            currentPlanningCardId = planningCardService.createPlanningCard(tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems())).getId();
+        }
         planningCardService.updateExercise(currentPlanningCardId, tfName.getText(), taDescription.getText(), dpDate.getValue(), new ArrayList<>(lvExercises.getItems()));
         dialog.hide();
     }
