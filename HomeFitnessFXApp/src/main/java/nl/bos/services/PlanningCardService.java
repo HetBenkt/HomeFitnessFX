@@ -35,4 +35,8 @@ public class PlanningCardService {
     public void updateExercise(long id, String name, String description, LocalDate date, List<Exercise> exercises) {
         planningCardDAO.updatePlanningCard(id, name, description, date, exercises);
     }
+
+    public PlanningCard copyPlanningCard(PlanningCard planningCard) {
+        return planningCardDAO.copyPlanningCard(planningCard);
+    }
 }

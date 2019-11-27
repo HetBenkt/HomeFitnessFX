@@ -1,35 +1,49 @@
 package nl.bos;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.bos.controllers.planningcards.PlanningCardsPresenter;
 import nl.bos.models.PlanningCard;
+import nl.bos.services.PlanningCardService;
 
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 public class PlanningCardCell extends ListCell<PlanningCard> {
     private Text description;
     private Text name;
-    private DatePicker date;
+    private final PlanningCardService planningCardService;
     private HBox exerciseContent;
+    private Text date;
     private PlanningCard planningCard;
+    private Button copy;
 
     public PlanningCardCell() {
         super();
+        planningCardService = new PlanningCardService();
         name = new Text();
         description = new Text();
-        date = new DatePicker();
+        date = new Text();
+        copy = new Button();
+        copy.setMaxSize(16, 16);
+        copy.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/copy.png"))));
+        copy.setOnAction(event -> copyPlanningCard());
 
-        VBox textBox = new VBox(name, description);
-        textBox.setAlignment(Pos.CENTER_LEFT);
+        HBox header = new HBox(copy, name, date);
+        header.setSpacing(10);
+        VBox subHeader = new VBox(header, description);
+        subHeader.setAlignment(Pos.CENTER_LEFT);
 
-        exerciseContent = new HBox(textBox);
+        exerciseContent = new HBox(subHeader);
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
@@ -43,6 +57,13 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
 
     }
 
+    private void copyPlanningCard() {
+        Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(planningCard));
+        planningCardService.copyPlanningCard(planningCard);
+        PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
+        planningCardsPresenter.updatePlanningCards();
+    }
+
     @Override
     protected void updateItem(PlanningCard planningCard, boolean empty) {
         super.updateItem(planningCard, empty);
@@ -50,13 +71,14 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
             setGraphic(null);
         } else {
             this.planningCard = planningCard;
-            name.setFont(Font.font("Verdana", 14));
+            name.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
             name.setText(planningCard.getName());
 
             description.setFont(Font.font("Verdana", FontPosture.ITALIC, 10));
             description.setText(planningCard.getDescription());
 
-            date.setValue(planningCard.getDate());
+            date.setFont(Font.font("Verdana", 14));
+            date.setText(planningCard.getDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
             setGraphic(exerciseContent);
         }

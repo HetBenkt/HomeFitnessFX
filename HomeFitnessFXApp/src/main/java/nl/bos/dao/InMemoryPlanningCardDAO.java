@@ -73,8 +73,8 @@ public class InMemoryPlanningCardDAO extends InMemoryDAO implements PlanningCard
     }
 
     @Override
-    public boolean copyPlanningCard(long id) {
-        return false;
+    public PlanningCard copyPlanningCard(PlanningCard planningCard) {
+        return createPlanningCard(planningCard.getName() + "- copy", planningCard.getDescription(), planningCard.getDate(), planningCard.getExercises());
     }
 
     @Override
