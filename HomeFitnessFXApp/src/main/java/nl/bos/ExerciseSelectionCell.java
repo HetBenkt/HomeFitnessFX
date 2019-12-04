@@ -16,8 +16,6 @@ import nl.bos.models.Exercise;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static nl.bos.IConstants.ADD_EXERCISE_DATA;
-
 public class ExerciseSelectionCell extends ListCell<Exercise> {
     private Text exerciseData;
     private Exercise exercise;
@@ -43,12 +41,10 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
-            if (exercise != null) {
-                if (isDialog) {
-                    Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
-                    this.listViewProperty().get().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                    this.listViewProperty().get().getSelectionModel().select(exercise);
-                }
+            if (exercise != null && isDialog) {
+                Logger.getLogger(ExerciseCell.class.getName()).info(exercise.getName());
+                this.listViewProperty().get().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+                this.listViewProperty().get().getSelectionModel().select(exercise);
             }
         });
     }
@@ -58,7 +54,7 @@ public class ExerciseSelectionCell extends ListCell<Exercise> {
         this.listViewProperty().get().getSelectionModel().select(exercise);
 
         Logger.getLogger(ExerciseSelectionCell.class.getName()).log(Level.INFO, "Add Reps/Sets/Units");
-        MobileApplication.getInstance().switchView(ADD_EXERCISE_DATA);
+        MobileApplication.getInstance().switchView(EConstants.ADD_EXERCISE_DATA.name());
         ExerciseDataPresenter exerciseDataPresenter = (ExerciseDataPresenter) Controllers.get("ExerciseDataPresenter");
         exerciseDataPresenter.updateFields(exercise);
     }

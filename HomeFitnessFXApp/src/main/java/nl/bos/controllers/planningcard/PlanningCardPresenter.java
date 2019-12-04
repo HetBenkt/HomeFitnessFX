@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import nl.bos.Controllers;
+import nl.bos.EConstants;
 import nl.bos.ExerciseSelectionCell;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.planningcards.PlanningCardsPresenter;
@@ -26,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static nl.bos.IConstants.VIEW_PLANNING_CARDS;
 
 public class PlanningCardPresenter {
     @FXML
@@ -62,7 +61,7 @@ public class PlanningCardPresenter {
 
         PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get(PlanningCardsPresenter.class.getSimpleName());
         planningCardsPresenter.updatePlanningCards();
-        MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
+        MobileApplication.getInstance().switchView(EConstants.VIEW_PLANNING_CARDS.name());
     }
 
     private void cleanFormFields() {
@@ -137,6 +136,7 @@ public class PlanningCardPresenter {
     }
 
     public void remove(Exercise exercise) {
-        lvExercises.getItems().remove(exercise);
+        planningCardService.getPlanningCard(currentPlanningCardId).removeExercise(exercise);
+        updateFields(planningCardService.getPlanningCard(currentPlanningCardId));
     }
 }

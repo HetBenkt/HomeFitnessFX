@@ -1,0 +1,5 @@
+package nl.bos;
+
+public enum EConstants {
+    EDIT_PLANNING_CARD, EDIT_EXERCISE, ADD_EXERCISE_DATA, VIEW_PLANNING_CARDS, VIEW_EXERCISES
+}

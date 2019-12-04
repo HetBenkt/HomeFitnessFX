@@ -10,16 +10,16 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import nl.bos.Controllers;
+import nl.bos.EConstants;
 import nl.bos.controllers.MainView;
 import nl.bos.models.Exercise;
 import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static nl.bos.IConstants.VIEW_PLANNING_CARDS;
 
 public class ExerciseDataPresenter {
     private ExerciseService exerciseService;
@@ -33,7 +33,13 @@ public class ExerciseDataPresenter {
     @FXML
     private TextField tfSets;
     @FXML
-    private ComboBox<String> cbUnit; //TODO make it a radiobutton selection (on mobile its almost unselectable!
+    private RadioButton rbTimes;
+    @FXML
+    private RadioButton rbSec;
+    @FXML
+    private RadioButton rbMin;
+    @FXML
+    private ToggleGroup rbUnit;
     @FXML
     private TextField tfReps;
     @FXML
@@ -52,11 +58,12 @@ public class ExerciseDataPresenter {
         Logger.getLogger(ExerciseDataPresenter.class.getName()).log(Level.INFO, "Save Exercise Data", actionEvent);
 
         exerciseService.updateExercise(currentExerciseId, tfName.getText(), taDescription.getText());
-        exerciseService.addExerciseData(currentExerciseId, Integer.parseInt(tfReps.getText()), Integer.parseInt(tfSets.getText()), cbUnit.getSelectionModel().getSelectedItem());
+        RadioButton selectedUnit = (RadioButton) rbUnit.getSelectedToggle();
+        exerciseService.addExerciseData(currentExerciseId, Integer.parseInt(tfReps.getText()), Integer.parseInt(tfSets.getText()), selectedUnit.getText());
         cleanFormFields();
         currentExerciseId = -1;
 
-        MobileApplication.getInstance().switchView(VIEW_PLANNING_CARDS);
+        MobileApplication.getInstance().switchView(EConstants.VIEW_PLANNING_CARDS.name());
     }
 
     private void cleanFormFields() {
@@ -66,7 +73,8 @@ public class ExerciseDataPresenter {
         taDescription.setText("");
         tfReps.setText("");
         tfSets.setText("");
-        cbUnit.getSelectionModel().clearSelection();
+        rbUnit.selectToggle(null);
+        rbTimes.setSelected(true);
     }
 
     @FXML
@@ -98,6 +106,10 @@ public class ExerciseDataPresenter {
         taDescription.setText(exercise.getDescription());
         tfReps.setText(String.valueOf(exercise.getReps()));
         tfSets.setText(String.valueOf(exercise.getSets()));
-        cbUnit.getSelectionModel().select(exercise.getUnit());
+
+        rbUnit.selectToggle(null);
+        rbTimes.setSelected(exercise.getUnit().equals("Times"));
+        rbSec.setSelected(exercise.getUnit().equals("Sec."));
+        rbMin.setSelected(exercise.getUnit().equals("Min."));
     }
 }

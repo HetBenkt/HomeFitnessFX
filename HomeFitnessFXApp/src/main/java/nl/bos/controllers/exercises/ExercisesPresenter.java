@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import nl.bos.Controllers;
+import nl.bos.EConstants;
 import nl.bos.ExerciseCell;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.exercise.ExercisePresenter;
@@ -17,8 +18,6 @@ import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static nl.bos.IConstants.EDIT_EXERCISE;
 
 public class ExercisesPresenter {
     private final ExerciseService exerciseService;
@@ -33,7 +32,7 @@ public class ExercisesPresenter {
 
     private static void create(ActionEvent e) {
         Logger.getLogger(ExercisesPresenter.class.getName()).log(Level.INFO, "Create new Exercise", e);
-        MobileApplication.getInstance().switchView(EDIT_EXERCISE);
+        MobileApplication.getInstance().switchView(EConstants.EDIT_EXERCISE.name());
     }
 
     @FXML
@@ -62,7 +61,7 @@ public class ExercisesPresenter {
 
     public void edit(long exerciseId) {
         Logger.getLogger(ExercisesPresenter.class.getName()).log(Level.INFO, "Edit Exercise");
-        MobileApplication.getInstance().switchView(EDIT_EXERCISE);
+        MobileApplication.getInstance().switchView(EConstants.EDIT_EXERCISE.name());
         ExercisePresenter exercisePresenter = (ExercisePresenter) Controllers.get("ExercisePresenter");
         exercisePresenter.updateFields(exerciseService.getExercise(exerciseId));
     }

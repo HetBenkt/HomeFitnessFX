@@ -14,8 +14,6 @@ import nl.bos.controllers.exercises.ExercisesView;
 import nl.bos.controllers.planningcard.PlanningCardView;
 import nl.bos.controllers.planningcards.PlanningCardsView;
 
-import static nl.bos.IConstants.*;
-
 @License(key = "7e71ebf2-bb31-44b7-806e-2cb0e3a7f4ba")
 public class HomeFitnessFX extends MobileApplication {
 
@@ -52,12 +50,12 @@ public class HomeFitnessFX extends MobileApplication {
     public void init() {
         addViewFactory(HOME_VIEW, HomeFitnessFX::getMain);
 
-        addViewFactory(VIEW_PLANNING_CARDS, HomeFitnessFX::getPlanningCards);
-        addViewFactory(EDIT_PLANNING_CARD, HomeFitnessFX::getPlanningCard);
+        addViewFactory(EConstants.VIEW_PLANNING_CARDS.name(), HomeFitnessFX::getPlanningCards);
+        addViewFactory(EConstants.EDIT_PLANNING_CARD.name(), HomeFitnessFX::getPlanningCard);
 
-        addViewFactory(VIEW_EXERCISES, HomeFitnessFX::getExercises);
-        addViewFactory(EDIT_EXERCISE, HomeFitnessFX::getExercise);
-        addViewFactory(ADD_EXERCISE_DATA, HomeFitnessFX::getExerciseData);
+        addViewFactory(EConstants.VIEW_EXERCISES.name(), HomeFitnessFX::getExercises);
+        addViewFactory(EConstants.EDIT_EXERCISE.name(), HomeFitnessFX::getExercise);
+        addViewFactory(EConstants.ADD_EXERCISE_DATA.name(), HomeFitnessFX::getExerciseData);
 
         DrawerManager.buildDrawer(this);
     }

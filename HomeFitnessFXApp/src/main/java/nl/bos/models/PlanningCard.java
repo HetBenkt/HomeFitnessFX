@@ -35,7 +35,7 @@ public class PlanningCard {
 
     public boolean removeExercise(Exercise exercise) {
         return exercises.remove(exercise);
-    } //TODO why is this not called as we can remove them from the card already??
+    }
 
     public List<Exercise> getExercises() {
         return exercises;

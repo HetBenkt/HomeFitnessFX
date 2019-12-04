@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import nl.bos.Controllers;
+import nl.bos.EConstants;
 import nl.bos.PlanningCardCell;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.planningcard.PlanningCardPresenter;
@@ -17,8 +18,6 @@ import nl.bos.services.PlanningCardService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static nl.bos.IConstants.EDIT_PLANNING_CARD;
 
 public class PlanningCardsPresenter {
 
@@ -35,7 +34,7 @@ public class PlanningCardsPresenter {
 
     private static void create(ActionEvent e) {
         Logger.getLogger(MainView.class.getName()).log(Level.INFO, "Create new PlanningCard", e);
-        MobileApplication.getInstance().switchView(EDIT_PLANNING_CARD);
+        MobileApplication.getInstance().switchView(EConstants.EDIT_PLANNING_CARD.name());
     }
 
     @FXML
@@ -64,7 +63,7 @@ public class PlanningCardsPresenter {
 
     public void edit(long planningCardId) {
         Logger.getLogger(PlanningCardsPresenter.class.getName()).log(Level.INFO, "Edit PlanningCard");
-        MobileApplication.getInstance().switchView(EDIT_PLANNING_CARD);
+        MobileApplication.getInstance().switchView(EConstants.EDIT_PLANNING_CARD.name());
         PlanningCardPresenter planningCardPresenter = (PlanningCardPresenter) Controllers.get("PlanningCardPresenter");
         planningCardPresenter.updateFields(planningCardService.getPlanningCard(planningCardId));
     }

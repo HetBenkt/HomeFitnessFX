@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import nl.bos.Controllers;
 import nl.bos.DrawerManager;
+import nl.bos.EConstants;
 import nl.bos.controllers.MainView;
 import nl.bos.controllers.exercises.ExercisesPresenter;
 import nl.bos.models.Exercise;
@@ -20,8 +21,6 @@ import nl.bos.services.ExerciseService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static nl.bos.IConstants.VIEW_EXERCISES;
 
 public class ExercisePresenter {
     private ExerciseService exerciseService;
@@ -58,7 +57,7 @@ public class ExercisePresenter {
 
         ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get(ExercisesPresenter.class.getSimpleName());
         exercisesPresenter.updateExercises();
-        MobileApplication.getInstance().switchView(VIEW_EXERCISES);
+        MobileApplication.getInstance().switchView(EConstants.VIEW_EXERCISES.name());
     }
 
     private void cleanFormFields() {
