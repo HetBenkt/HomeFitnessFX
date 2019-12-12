@@ -65,6 +65,11 @@ public class SQLiteExerciseDAO extends SQLiteDAO implements ExerciseDAO {
     }
 
     @Override
+    public Exercise copyExercise(Exercise exercise) {
+        return null;
+    }
+
+    @Override
     public long getNextId() {
         return ++currentId;
     }

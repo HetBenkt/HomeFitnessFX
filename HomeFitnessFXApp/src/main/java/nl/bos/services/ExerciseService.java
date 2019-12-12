@@ -37,4 +37,8 @@ public class ExerciseService {
     public void addExerciseData(long id, int reps, int sets, String unit) {
         exerciseDAO.addExerciseData(id, reps, sets, unit);
     }
+
+    public Exercise copyExercise(Exercise exercise) {
+        return exerciseDAO.copyExercise(exercise);
+    }
 }

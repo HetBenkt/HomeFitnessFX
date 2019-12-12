@@ -2,7 +2,9 @@ package nl.bos;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -12,6 +14,7 @@ import javafx.scene.text.Text;
 import nl.bos.controllers.MainPresenter;
 import nl.bos.controllers.exercises.ExercisesPresenter;
 import nl.bos.models.Exercise;
+import nl.bos.services.ExerciseService;
 
 import java.util.logging.Logger;
 
@@ -21,12 +24,21 @@ public class ExerciseCell extends ListCell<Exercise> {
     private ImageView icon;
     private HBox exerciseContent;
     private Exercise exercise;
+    private final ExerciseService exerciseService;
+    private Button copy;
+
 
     public ExerciseCell(String presenterName) {
         super();
+        exerciseService = new ExerciseService();
         exerciseData = new Text();
         description = new Text();
         icon = new ImageView();
+
+        copy = new Button();
+        copy.setMaxSize(16, 16);
+        copy.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/copy.png"))));
+        copy.setOnAction(event -> copyExercise());
 
         VBox iconBox = new VBox(icon);
         iconBox.setAlignment(Pos.CENTER);
@@ -34,7 +46,12 @@ public class ExerciseCell extends ListCell<Exercise> {
         VBox textBox = new VBox(exerciseData, description);
         textBox.setAlignment(Pos.CENTER_LEFT);
 
-        exerciseContent = new HBox(iconBox, textBox);
+        if (presenterName.equals("ExercisesPresenter")) {
+            exerciseContent = new HBox(copy, iconBox, textBox);
+        } else {
+            exerciseContent = new HBox(iconBox, textBox);
+        }
+
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
@@ -54,6 +71,13 @@ public class ExerciseCell extends ListCell<Exercise> {
                 }
             }
         });
+    }
+
+    private void copyExercise() {
+        Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(exercise));
+        exerciseService.copyExercise(exercise);
+        ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
+        exercisesPresenter.updateExercises();
     }
 
     @Override

@@ -20,4 +20,6 @@ public interface ExerciseDAO extends GenericDAO {
     List<Exercise> getAllUnusedExercises();
 
     void addExerciseData(long id, int reps, int sets, String unit);
+
+    Exercise copyExercise(Exercise exercise);
 }

@@ -80,6 +80,11 @@ public class InMemoryExerciseDAO extends InMemoryDAO implements ExerciseDAO {
     }
 
     @Override
+    public Exercise copyExercise(Exercise exercise) {
+        return createExercise(exercise.getName() + "- copy", exercise.getDescription(), exercise.getIcon());
+    }
+
+    @Override
     public long getNextId() {
         return ++currentId;
     }
