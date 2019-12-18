@@ -22,7 +22,7 @@ public class InMemoryPlanningCardDAO extends InMemoryDAO implements PlanningCard
         Exercise exercise = exerciseDAO.createExercise("Plank", "Lie straight with both forearms \nsupporting body; hold position", new Image(DrawerManager.class.getResourceAsStream("/exercise1.png")));
         List<Exercise> exercises = new ArrayList<>();
         exercises.add(exercise);
-        PlanningCard firstDay = createPlanningCard("First day", "", LocalDate.now(), exercises);
+        PlanningCard firstDay = createPlanningCard("First day", "Hello world description", LocalDate.now(), exercises);
         exercise.addToUsedByPlanningCards(firstDay);
     }
 
@@ -58,8 +58,8 @@ public class InMemoryPlanningCardDAO extends InMemoryDAO implements PlanningCard
     }
 
     @Override
-    public boolean deletePlanningCard(long id) {
-        return false;
+    public void deletePlanningCard(PlanningCard planningCard) {
+        planningCards.remove(planningCard);
     }
 
     @Override

@@ -39,4 +39,8 @@ public class PlanningCardService {
     public PlanningCard copyPlanningCard(PlanningCard planningCard) {
         return planningCardDAO.copyPlanningCard(planningCard);
     }
+
+    public void deletePlanningCard(PlanningCard planningCard) {
+        planningCardDAO.deletePlanningCard(planningCard);
+    }
 }

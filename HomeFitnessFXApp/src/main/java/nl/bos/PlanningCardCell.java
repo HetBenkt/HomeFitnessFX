@@ -1,6 +1,5 @@
 package nl.bos;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
@@ -26,6 +25,7 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
     private Text date;
     private PlanningCard planningCard;
     private Button copy;
+    private Button delete;
 
     public PlanningCardCell() {
         super();
@@ -37,13 +37,19 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
         copy.setMaxSize(16, 16);
         copy.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/copy.png"))));
         copy.setOnAction(event -> copyPlanningCard());
+        delete = new Button();
+        delete.setMaxSize(16, 16);
+        delete.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/delete.png"))));
+        delete.setOnAction(event -> deletePlanningCard());
 
-        HBox header = new HBox(copy, name, date);
+        VBox actions = new VBox(delete, copy);
+        actions.setSpacing(10);
+        HBox header = new HBox(name, date);
         header.setSpacing(10);
-        VBox subHeader = new VBox(header, description);
-        subHeader.setAlignment(Pos.CENTER_LEFT);
+        VBox information = new VBox(header, description);
+        information.setSpacing(10);
 
-        exerciseContent = new HBox(subHeader);
+        exerciseContent = new HBox(actions, information);
         exerciseContent.setSpacing(10);
 
         this.setOnMouseClicked(event -> {
@@ -60,6 +66,13 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
     private void copyPlanningCard() {
         Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(planningCard));
         planningCardService.copyPlanningCard(planningCard);
+        PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
+        planningCardsPresenter.updatePlanningCards();
+    }
+
+    private void deletePlanningCard() {
+        Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(planningCard));
+        planningCardService.deletePlanningCard(planningCard);
         PlanningCardsPresenter planningCardsPresenter = (PlanningCardsPresenter) Controllers.get("PlanningCardsPresenter");
         planningCardsPresenter.updatePlanningCards();
     }
