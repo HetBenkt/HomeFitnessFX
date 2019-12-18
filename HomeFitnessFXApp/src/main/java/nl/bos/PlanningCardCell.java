@@ -1,6 +1,8 @@
 package nl.bos;
 
+import com.gluonhq.charm.glisten.control.Dialog;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,7 +42,7 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
         delete = new Button();
         delete.setMaxSize(16, 16);
         delete.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/delete.png"))));
-        delete.setOnAction(event -> deletePlanningCard());
+        delete.setOnAction(event -> showDialog());
 
         VBox actions = new VBox(delete, copy);
         actions.setSpacing(10);
@@ -61,6 +63,20 @@ public class PlanningCardCell extends ListCell<PlanningCard> {
             }
         });
 
+    }
+
+    private void showDialog() {
+        Dialog dialog = new Dialog();
+        dialog.setTitle(new Label("Are you sure?"));
+        Button okButton = new Button("Ok");
+        Button cancelButton = new Button("Cancel");
+        okButton.setOnAction(e -> {
+            deletePlanningCard();
+            dialog.hide();
+        });
+        cancelButton.setOnAction(e -> dialog.hide());
+        dialog.getButtons().addAll(okButton, cancelButton);
+        dialog.showAndWait();
     }
 
     private void copyPlanningCard() {

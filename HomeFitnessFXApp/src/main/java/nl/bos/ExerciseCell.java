@@ -1,8 +1,10 @@
 package nl.bos;
 
+import com.gluonhq.charm.glisten.control.Dialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,8 +46,7 @@ public class ExerciseCell extends ListCell<Exercise> {
         delete = new Button();
         delete.setMaxSize(16, 16);
         delete.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/delete.png"))));
-        delete.setOnAction(event -> deleteExercise());
-
+        delete.setOnAction(event -> showDialog());
 
         VBox iconBox = new VBox(icon);
         iconBox.setAlignment(Pos.CENTER);
@@ -80,6 +81,20 @@ public class ExerciseCell extends ListCell<Exercise> {
                 }
             }
         });
+    }
+
+    private void showDialog() {
+        Dialog dialog = new Dialog();
+        dialog.setTitle(new Label("Are you sure?"));
+        Button okButton = new Button("Ok");
+        Button cancelButton = new Button("Cancel");
+        okButton.setOnAction(e -> {
+            deleteExercise();
+            dialog.hide();
+        });
+        cancelButton.setOnAction(e -> dialog.hide());
+        dialog.getButtons().addAll(okButton, cancelButton);
+        dialog.showAndWait();
     }
 
     private void copyExercise() {
