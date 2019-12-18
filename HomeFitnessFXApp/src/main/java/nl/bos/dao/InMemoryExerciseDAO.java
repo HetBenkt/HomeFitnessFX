@@ -52,8 +52,8 @@ public class InMemoryExerciseDAO extends InMemoryDAO implements ExerciseDAO {
     }
 
     @Override
-    public boolean deleteExercise(long id) {
-        return false;
+    public void deleteExercise(Exercise exercise) {
+        exercises.remove(exercise);
     }
 
     @Override

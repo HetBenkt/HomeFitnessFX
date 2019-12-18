@@ -41,4 +41,8 @@ public class ExerciseService {
     public Exercise copyExercise(Exercise exercise) {
         return exerciseDAO.copyExercise(exercise);
     }
+
+    public void deleteExercise(Exercise exercise) {
+        exerciseDAO.deleteExercise(exercise);
+    }
 }

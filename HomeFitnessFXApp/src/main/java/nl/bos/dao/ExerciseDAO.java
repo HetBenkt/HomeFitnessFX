@@ -13,7 +13,7 @@ public interface ExerciseDAO extends GenericDAO {
 
     Exercise getExercise(long id);
 
-    boolean deleteExercise(long id);
+    void deleteExercise(Exercise exercise);
 
     Exercise updateExercise(long id, String name, String description);
 

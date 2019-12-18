@@ -26,6 +26,7 @@ public class ExerciseCell extends ListCell<Exercise> {
     private Exercise exercise;
     private final ExerciseService exerciseService;
     private Button copy;
+    private Button delete;
 
 
     public ExerciseCell(String presenterName) {
@@ -40,6 +41,12 @@ public class ExerciseCell extends ListCell<Exercise> {
         copy.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/copy.png"))));
         copy.setOnAction(event -> copyExercise());
 
+        delete = new Button();
+        delete.setMaxSize(16, 16);
+        delete.setGraphic(new ImageView(new Image(DrawerManager.class.getResourceAsStream("/delete.png"))));
+        delete.setOnAction(event -> deleteExercise());
+
+
         VBox iconBox = new VBox(icon);
         iconBox.setAlignment(Pos.CENTER);
 
@@ -47,7 +54,9 @@ public class ExerciseCell extends ListCell<Exercise> {
         textBox.setAlignment(Pos.CENTER_LEFT);
 
         if (presenterName.equals("ExercisesPresenter")) {
-            exerciseContent = new HBox(copy, iconBox, textBox);
+            VBox actions = new VBox(delete, copy);
+            actions.setSpacing(10);
+            exerciseContent = new HBox(actions, iconBox, textBox);
         } else {
             exerciseContent = new HBox(iconBox, textBox);
         }
@@ -76,6 +85,13 @@ public class ExerciseCell extends ListCell<Exercise> {
     private void copyExercise() {
         Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(exercise));
         exerciseService.copyExercise(exercise);
+        ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
+        exercisesPresenter.updateExercises();
+    }
+
+    private void deleteExercise() {
+        Logger.getLogger(PlanningCardCell.class.getName()).info(String.valueOf(exercise));
+        exerciseService.deleteExercise(exercise);
         ExercisesPresenter exercisesPresenter = (ExercisesPresenter) Controllers.get("ExercisesPresenter");
         exercisesPresenter.updateExercises();
     }

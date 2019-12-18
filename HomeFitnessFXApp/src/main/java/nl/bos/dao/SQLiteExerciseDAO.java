@@ -42,8 +42,8 @@ public class SQLiteExerciseDAO extends SQLiteDAO implements ExerciseDAO {
     }
 
     @Override
-    public boolean deleteExercise(long id) {
-        return false;
+    public void deleteExercise(Exercise exercise) {
+
     }
 
     @Override
